@@ -6,10 +6,13 @@ package tp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.catalina.Session;
+import tp.dao.CRUD;
 
 /**
  *
@@ -32,10 +35,16 @@ public class ControleurBackOff extends HttpServlet {
         //le switch principal en cas d'actions
         String lsNomPageInclusion = new String();
 
-        if (request.getParameter("action") != null && !request.getParameter("action").equals("BackOff")) {
+        if (request.getParameter("action") != null) {
 
             lsNomPageInclusion = request.getParameter("action") + ".jsp";
             request.setAttribute("inclusion", lsNomPageInclusion);
+        }       
+        
+        if (request.getParameter("action").equals("_accueil")) {
+            CRUD crud = new CRUD("pariscope");
+            ResultSet lrs = crud.selectAll("concerts");
+            request.setAttribute("resultset", lrs);
         }
 
         getServletContext().getRequestDispatcher("/jsp_back/BackOff.jsp").forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
