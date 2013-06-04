@@ -6,10 +6,12 @@ package tp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import tp.dao.CRUD;
 
 /**
  *
@@ -29,16 +31,38 @@ public class ControleurBackOff extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String redirection = null;
+        //connexion à la base pariscope
+        CRUD database = new CRUD("pariscope");
         //le switch principal en cas d'actions
         String lsNomPageInclusion = new String();
+        
+        
+        if (request.getParameter("autent").equals("checkUtilisateur")) {
+            String login = request.getParameter("login");
+            String mdp = request.getParameter("mdp");
+            boolean check = database.checkUtilisateur("redacteurs", "login", "mdp", login,mdp );
+            if (check) {
+                request.setAttribute("checked", true);
+                request.setAttribute("inclusion", "_accueil.jsp");
+                redirection = "/jsp_back/BackOff.jsp";
+            }else {
+               redirection = "/index.jsp";
+            }
 
-        if (request.getParameter("action") != null && !request.getParameter("action").equals("BackOff")) {
+        }
+
+        if (request.getParameter("action") != null ) {
 
             lsNomPageInclusion = request.getParameter("action") + ".jsp";
             request.setAttribute("inclusion", lsNomPageInclusion);
+
+            //récupération de tout les éléments de la table concerts
+            ResultSet selectAll = database.selectAll("concerts");
+            request.setAttribute("elements", selectAll);
         }
 
-        getServletContext().getRequestDispatcher("/jsp_back/BackOff.jsp").forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
+        getServletContext().getRequestDispatcher(redirection).forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
 
     }
 

@@ -313,6 +313,7 @@ public class CRUD {
                 if (lrsCurseur.getString(sIntitul1).equals(sLogin)
                         && lrsCurseur.getString(sIntitul2).equals(sPassword)) {
                     boCheck = true;
+                    break;
                 } else {
                     boCheck = false;
                 }
