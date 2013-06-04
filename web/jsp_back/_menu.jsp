@@ -7,11 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav>
     <form action="/tppariscope/ControleurBackOff" method="post">
-        <input type="hidden" name="action" value="inserer">
+        <input type="hidden" name="action" value="_inserer">
         <input type="submit" value="Inserer">
     </form>
     <form action="/tppariscope/ControleurBackOff" method="post">
-        <input type="hidden" name="action" value="accueil">
+        <input type="hidden" name="action" value="_accueil">
         <input type="submit" value="accueil">
     </form>
 </nav>

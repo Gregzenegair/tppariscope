@@ -7,6 +7,7 @@ package tp.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,26 @@ public class ControleurBackOff extends HttpServlet {
             ResultSet lrs = crud.selectAll("concerts");
             request.setAttribute("resultset", lrs);
         }
-
+        if (request.getParameter("action").equals("_inserer")&&request.getParameter("id")!=null) {
+           request.setAttribute("id", request.getParameter("id"));
+        }
+        if (request.getParameter("action").equals("_insererValidation")) {
+           CRUD crud = new CRUD("pariscope");
+            crud.insertInto("concerts",
+                    CRUD.genInsert("7",
+                    "id_categorie","titre","date","lieu","prix","description","lien_reservation",
+                    request.getParameter("categorie").toString(),
+                    request.getParameter("titre").toString(),
+                    request.getParameter("date").toString(),
+                    request.getParameter("lieu").toString(),
+                    request.getParameter("prix").toString(),
+                    request.getParameter("description").toString(),
+                    request.getParameter("lien").toString()
+                    ));
+            lsNomPageInclusion ="_inserer.jsp";
+        }
+        
+        
         getServletContext().getRequestDispatcher("/jsp_back/BackOff.jsp").forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
 
     }
