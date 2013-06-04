@@ -14,7 +14,7 @@
     <body>
         <h1>Insertion</h1>
         <form action="/tppariscope/ControleurBackOff" method="post">
-            <input type="hidden" name="action" value="insererValidation">
+            <input type="hidden" name="action" value="_insererValidation">
             
             <label for="categorie">categorie : </label>
             <input type="text" name="categorie" id="categorie">
