@@ -27,7 +27,7 @@
     <body>
         <h1>Insertion</h1>
         <form action="/tppariscope/ControleurBackOff" method="post">
-            <input type="hidden" name="action" value="_insererValidation">
+            <input type="hidden" name="action" value="<%=request.getAttribute("id")!=null?"_modifierValidation":"_insererValidation"%>">
             
             <label for="categorie">categorie : </label>
             <input type="text" name="categorie" id="categorie" value="<%=lrs!=null?Integer.toString(lrs.getInt(2)):""%>" />
