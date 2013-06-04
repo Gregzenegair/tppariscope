@@ -9,9 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <!-- Utilisation du controleur -->
+        <%             String lsContexte = request.getContextPath();
+            String lsURL = lsContexte + "/ControleurBackOff?action=BackOff";
+            out.println("<meta http-equiv='refresh' content='1; url=" + lsURL + "' />");
+            // <meta http-equiv='refresh' content='secondes; url=url' />
+        %>
     </head>
     <body>
-        <h1>Hello World!</h1>
+
     </body>
 </html>

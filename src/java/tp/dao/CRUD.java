@@ -159,7 +159,6 @@ public class CRUD {
      * fonctionnera avec deux arraylist générés
      */
     public void updateWhere(String sNomTable, ArrayList<String[]> sValeur,ArrayList<String[]> sCondition) {
-        ResultSet lrsCurseur = null;
         StringBuilder sbRequete = new StringBuilder("UPDATE ");
         sbRequete.append(sNomTable);
         sbRequete.append(" SET ");
