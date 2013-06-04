@@ -6,5 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav>
-    Menu avec liens vers autres pages
+    <form action="/tppariscope/ControleurBackOff" method="post">
+        <input type="hidden" name="action" value="inserer">
+        <input type="submit" value="Inserer">
+    </form>
+    <form action="/tppariscope/ControleurBackOff" method="post">
+        <input type="hidden" name="action" value="accueil">
+        <input type="submit" value="accueil">
+    </form>
 </nav>

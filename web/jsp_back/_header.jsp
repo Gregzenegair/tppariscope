@@ -4,6 +4,11 @@
     Author     : Cyrius
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<header>
-    HEADER BACK OFF
+<header>BACK OFF
+    <form action="/tppariscope/ControleurBackOff" method="post">
+        <input type="hidden" name="action" value="rechercher">
+        <label for="recherche">Rechercher</label>
+        <input type="text" name="recherche" id="recherche">
+        <input type="submit">
+    </form>
 </header>
