@@ -12,6 +12,28 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%@include  file="_header.jsp" %>
+        <%@include  file="_menu.jsp" %>
+        <article>
+
+            <%
+                String lsPageIncluse = "";
+                // Si des parametres sont a passer a la page incluse
+                String lsParametre = "";
+
+                if (request.getAttribute("inclusion") != null) {
+                    lsPageIncluse = request.getAttribute("inclusion").toString();
+                } else {
+                    lsPageIncluse = "_accueil.jsp";
+                }
+            %>
+
+            <!-- Element action de JSP : inclusion dynamique -->
+            <jsp:include page="<%= lsPageIncluse%>" flush="true">
+                <jsp:param name="id" value="<%= lsParametre%>" />
+            </jsp:include>
+
+        </article>
+        <%@include  file="_footer.jsp" %>
     </body>
 </html>

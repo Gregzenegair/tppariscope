@@ -32,7 +32,7 @@ public class ControleurBackOff extends HttpServlet {
         //le switch principal en cas d'actions
         String lsNomPageInclusion = new String();
 
-        if (request.getParameter("action") != null) {
+        if (request.getParameter("action") != null && !request.getParameter("action").equals("BackOff")) {
 
             lsNomPageInclusion = request.getParameter("action") + ".jsp";
             request.setAttribute("inclusion", lsNomPageInclusion);
