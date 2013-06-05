@@ -33,6 +33,7 @@ public class ControleurBackOff extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         //le switch principal en cas d'actions
         String lsNomPageInclusion = new String();
 
