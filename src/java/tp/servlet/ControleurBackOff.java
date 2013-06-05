@@ -92,6 +92,8 @@ public class ControleurBackOff extends HttpServlet {
                     CRUD.genCondition("id_concert", request.getParameter("id")));
 
             lsNomPageInclusion = "_accueil.jsp";
+            ResultSet lrs = crud.selectAllCC();
+            request.setAttribute("resultset", lrs);
         }
 
 
