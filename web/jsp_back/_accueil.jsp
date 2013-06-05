@@ -72,19 +72,24 @@
                 out.print("</td>");
 
                 out.print("<td>");
+                out.print(lrs.getString(2));
+                out.print("</td>");
+
+                out.print("<td>");
+                out.print(lrs.getString(3));
+                out.print("</td>");
+
+                out.print("<td>");
                 out.print(lrs.getString(4));
                 out.print("</td>");
 
                 out.print("<td>");
                 out.print(lrs.getString(5));
                 out.print("</td>");
-
+                out.print("</tr>");
+                
                 out.print("<td>");
                 out.print(lrs.getString(6));
-                out.print("</td>");
-
-                out.print("<td>");
-                out.print(lrs.getString(7));
                 out.print("</td>");
                 out.print("</tr>");
             }
