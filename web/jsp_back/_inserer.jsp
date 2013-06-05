@@ -25,6 +25,7 @@
     %>
     <body>
         <h1>Insertion</h1>
+        <%=request.getAttribute("message")!= null ? request.getAttribute("message") : ""%>
         <form action="/tppariscope/ControleurBackOff" method="post">
             <input type="hidden" name="action" value="<%=request.getAttribute("id") != null ?"_modifierValidation" :"_insererValidation"%>">
             <%if (request.getAttribute("id") != null) {
