@@ -12,12 +12,14 @@
         <!-- Utilisation du controleur -->
         <%
             String lsContexte = request.getContextPath();
-            String lsURL = lsContexte + "/ControleurBackOff?action=_accueil";
-            out.println("<meta http-equiv='refresh' content='1; url=" + lsURL + "' />");
-            // <meta http-equiv='refresh' content='secondes; url=url' />
-%>
+        %>
     </head>
     <body>
-
+        <form action="/tppariscope/ControleurUtilisateur" method="post">
+            Login:<input type="text" name="login" />
+            Mot de passe:<input type="password" name="mdp"  />
+            <input type="hidden" name="action" value="checkUtilisateur"/>
+            <input type="submit"/>
+        </form>
     </body>
 </html>

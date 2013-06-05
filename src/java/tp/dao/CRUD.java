@@ -330,27 +330,33 @@ public class CRUD {
     }/// CREATE DATABASE
 
     //------------------------------------------------------------------------------------------------------------------
-    /*
+     /*
      * Check Utilisateur, prend en param le nom de la table a rechercher, et les deux valeurs à vérifier
      * parametre: nom de la table, intitulés a vérifier dans la bdd, les deux éléments à vérifier
+     * select login, mdp from redacteurs where login='chris' and mdp='azerty';
+
      */
-    public boolean checkUtilisateur(String sNomTable,
+    public String checkUtilisateur(String sNomTable,
             String sIntitul1, String sIntitul2, String sLogin, String sPassword) {
-        boolean boCheck = false;
+        String utilisateur = "";
+        String[] lasColonnes = {"*"};
         try {
-            ResultSet lrsCurseur = this.selectAll(sNomTable);
-            while (lrsCurseur.next()) {
-                if (lrsCurseur.getString(sIntitul1).equals(sLogin)
-                        && lrsCurseur.getString(sIntitul2).equals(sPassword)) {
-                    boCheck = true;
+            ResultSet lrsCurseur = this.selectWhere(sNomTable, lasColonnes, CRUD.genCondition(sIntitul1, sLogin, sIntitul2, sPassword));
+            if (lrsCurseur.next()) {
+                int rang = lrsCurseur.getInt(4);
+                if (rang == 0) {
+                    utilisateur = "redac";
                 } else {
-                    boCheck = false;
+                    utilisateur = "admin";
                 }
+            } else {
+                utilisateur = null;
             }
-        } catch (SQLException ex) {
+        } /// checkUtilisateur
+        catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return boCheck;
+        return utilisateur;
     }/// checkUtilisateur
 
     /*

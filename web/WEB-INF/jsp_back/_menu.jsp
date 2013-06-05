@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String lsContexte = request.getContextPath();// on récupère http://....
+%>
 <nav>
     <form action="/tppariscope/ControleurBackOff" method="post">
         <input type="hidden" name="action" value="_inserer">
