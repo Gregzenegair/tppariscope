@@ -121,6 +121,17 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
     
+
+        public ResultSet selectAllJOIN() {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT * FROM  concerts co JOIN categories ca  WHERE id_concert = '1' AND co.id_categorie = ca.id_categorie;");
+       } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
     
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
