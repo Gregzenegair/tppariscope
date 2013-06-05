@@ -363,7 +363,8 @@ public class CRUD {
         if (sElements.length % 2 == 0) {
             for (int i = 0; i < sElements.length; i++) {
                 String[] condition = new String[2];
-                condition[0] = sElements[i];
+                if (sElements[i]==""){sElements[i]=null;}
+                condition[0] = sElements[i]; 
                 i++;
                 //formate la valeur en ajoutant ' ' autour de la valeur, sinon erreur requete
                 String valeur = "'" + sElements[i] + "'";
@@ -389,6 +390,7 @@ public class CRUD {
             for (int ligne = 0, element = 1; ligne < iNombreLigne; ligne++) {
                 String[] insert = new String[iNombreCol];
                 for (int col = 0; col < iNombreCol; col++) {
+                    if (sElements[element]==""){sElements[element]=null;}
                     insert[col] = sElements[element];
                     element++;
                 }//for col
