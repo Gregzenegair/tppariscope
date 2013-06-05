@@ -46,12 +46,9 @@ public class ControleurAdmin extends HttpServlet {
                 ResultSet lrs = crud.selectAllCCAnnuler();
                 request.setAttribute("resultset", lrs);
             }
-//            if (request.getParameter("page").equals("_validerSupp")) {
-//                CRUD crud = new CRUD("pariscope");
-//                ResultSet lrs = crud.selectAllCCAnnuler();
-//                request.setAttribute("resultset", lrs);
-//            }
         }
+
+
 
         if (request.getParameter("action") != null) {
             String action = request.getParameter("action");
@@ -71,6 +68,29 @@ public class ControleurAdmin extends HttpServlet {
 
 
                     request.setAttribute("inclusion", "_insereRedac.jsp");
+                    break;
+                case "supprimerValider":
+                    String id = request.getParameter("id");
+                    CRUD deleteArticle = new CRUD("pariscope");
+                    deleteArticle.deleteWhere("concerts",
+                            CRUD.genCondition("id_concert", id));
+                    
+                    ResultSet lrs = deleteArticle.selectAllCCAnnuler();
+                    request.setAttribute("resultset", lrs);
+                    request.setAttribute("inclusion", "_validerSupp.jsp");
+                    break;
+                    
+             case "supprimerAnnuler":
+                    id = request.getParameter("id");
+                    CRUD supprimerAnnuler = new CRUD("pariscope");
+                    supprimerAnnuler.updateWhere("concerts",
+                    CRUD.genCondition(
+                    "demande_sup", "0"),
+                    CRUD.genCondition("id_concert", id));
+                    
+                    lrs = supprimerAnnuler.selectAllCCAnnuler();
+                    request.setAttribute("resultset", lrs);
+                    request.setAttribute("inclusion", "_validerSupp.jsp");
                     break;
                 default:
                     request.setAttribute("inclusion", "_accueil.jsp");

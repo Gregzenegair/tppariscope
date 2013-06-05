@@ -12,8 +12,8 @@
     <br> 
     <%
         String lsContexte = request.getContextPath();
-        String lsSupp = lsContexte + "/ControleurBackOff?action=_supprimerValider&id=";
-        String lsAnn = lsContexte + "/ControleurBackOff?action=_supprimerAnnuler&id=";
+        String lsSupp = lsContexte + "/ControleurAdmin?action=supprimerValider&id=";
+        String lsAnn = lsContexte + "/ControleurAdmin?action=supprimerAnnuler&id=";
 
         if (request.getAttribute("resultset") != null) {
             ResultSet lrs = (ResultSet) request.getAttribute("resultset");
