@@ -60,3 +60,7 @@ a:hover {
     color: orangered;
     transition: all 1s;
 }
+
+#formulaire {
+    text-align: center;
+}
