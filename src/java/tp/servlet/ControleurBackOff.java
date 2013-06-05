@@ -39,10 +39,12 @@ public class ControleurBackOff extends HttpServlet {
         if (request.getParameter("action") != null) {
 
             lsNomPageInclusion = request.getParameter("action") + ".jsp";
-
+        }
+        if (request.getParameter("action") == null) {
+            lsNomPageInclusion = "_accueil.jsp";
         }
 
-        if (request.getParameter("action").equals("_accueil")) {
+        if (request.getParameter("action").equals("_accueil") || request.getParameter("action") == null) {
             CRUD crud = new CRUD("pariscope");
 
             if (request.getParameter("tri") == null) {
@@ -58,7 +60,6 @@ public class ControleurBackOff extends HttpServlet {
                 request.setAttribute("tri", "desc");
             }
         }
-
         if (request.getParameter("action").equals("_inserer") && request.getParameter("id") != null) {
             request.setAttribute("id", request.getParameter("id"));
         }
@@ -91,6 +92,8 @@ public class ControleurBackOff extends HttpServlet {
 
             lsNomPageInclusion = "_accueil.jsp";
         }
+
+
         request.setAttribute("inclusion", lsNomPageInclusion);
         getServletContext().getRequestDispatcher("/jsp_back/BackOff.jsp").forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
 

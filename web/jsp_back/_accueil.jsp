@@ -34,38 +34,38 @@
                 out.print("</td>");
 
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=categorie'>v</a>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=categorie'>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=titre'>v</a>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=titre'>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=date_concert'>v</a>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=date_concert'>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=lieu'>v</a>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=lieu'>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=prix'>v</a>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=prix'>a -> z</a>");
                 out.print("</td>");
             } else {
                 out.print("<td>");
                 //td vide
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=categorie'>^</a>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=categorie''>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=titre'>^</a>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=titre''>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=date_concert'>^</a>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=date_concert''>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=lieu'>^</a>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=lieu''>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=prix'>^</a>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=prix''>a -> z</a>");
                 out.print("</td>");
             }
 

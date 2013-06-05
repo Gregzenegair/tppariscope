@@ -33,26 +33,26 @@
             <input type="hidden" name="id" value="<%=request.getAttribute("id") != null ? request.getAttribute("id") : ""%>">
 
             <label for="categorie">categorie : </label>
-            <input type="text" name="categorie" id="categorie" value="<%=lrs != null ? Integer.toString(lrs.getInt(2)) : ""%>" />
+            <input type="text" name="categorie" id="categorie" value="<%=lrs != null ? lrs.getString(2) : ""%>" />
 
             <label for="titre">titre : </label>
             <input type="text" name="titre" id="categorie" value="<%=lrs != null ? lrs.getString(3) : ""%>">
 
             <label for="date">date : </label>
-            <input type="text" name="date" id="date" value="<%=lrs != null ? lrs.getObject(4).toString() : ""%>">
+            <input type="text" name="date" id="date" value="<%=lrs != null ? lrs.getString(4).toString() : ""%>">
 
             <label for="lieu">lieu : </label>
             <input type="text" name="lieu" id="lieu" value="<%=lrs != null ? lrs.getString(5) : ""%>">
 
             <label for="prix">prix : </label>
-            <input type="text" name="prix" id="prix" value="<%=lrs != null ? Integer.toString(lrs.getInt(6)) : ""%>">
+            <input type="text" name="prix" id="prix" value="<%=lrs != null ? lrs.getString(6): ""%>">
 
             <label for="description">description : </label>
-            <input type="text" name="description" id="description" value="<%=lrs != null ? lrs.getString(7) : ""%>">
-
+            <textarea name="description" id="description" placeholder="<%=lrs != null ? lrs.getString(7) : ""%>"></textarea>
+            
             <label for="lien">lien reservation : </label>
             <input type="text" name="lien" id="lien" value="<%=lrs != null ? lrs.getString(8) : ""%>">
-
+            
             <input type="submit" >
         </form>
     </body>
