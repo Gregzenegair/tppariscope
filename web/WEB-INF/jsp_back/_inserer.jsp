@@ -25,7 +25,6 @@
     %>
     <body>
         <h1>Insertion</h1>
-        <%=request.getAttribute("message")!= null ? request.getAttribute("message") : ""%>
         <form action="/tppariscope/ControleurBackOff" method="post">
             <input type="hidden" name="action" value="<%=request.getAttribute("id") != null ?"_modifierValidation" :"_insererValidation"%>">
             <%if (request.getAttribute("id") != null) {
@@ -51,8 +50,8 @@
             
             <label for="lien">lien reservation : </label>
             <input type="text" name="lien" id="lien" value="<%=lrs != null ? lrs.getString(8) : ""%>">
-            <br>
-            <input type="submit" class="submit" >
+            
+            <input type="submit" >
         </form>
     </body>
 </html>

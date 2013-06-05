@@ -4,9 +4,25 @@
         <servlet-name>ControleurBackOff</servlet-name>
         <servlet-class>tp.servlet.ControleurBackOff</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControleurAdmin</servlet-name>
+        <servlet-class>tp.servlet.ControleurAdmin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControleurBackOff</servlet-name>
         <url-pattern>/ControleurBackOff</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ControleurUtilisateur</servlet-name>
+        <servlet-class>tp.servlet.ControleurUtilisateur</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControleurUtilisateur</servlet-name>
+        <url-pattern>/ControleurUtilisateur</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControleurAdmin</servlet-name>
+        <url-pattern>/ControleurAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
