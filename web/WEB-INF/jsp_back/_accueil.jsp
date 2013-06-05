@@ -3,7 +3,7 @@
     Created on : 4 juin 2013, 13:38:26
     Author     : Cyrius
 --%>
- 
+
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <article>
@@ -13,6 +13,7 @@
         String lsContexte = request.getContextPath();
         String lsTri = lsContexte + "/ControleurBackOff?action=_accueil";
         String lsURL = lsContexte + "/ControleurBackOff?action=_inserer&id=";
+        String lsSupp = lsContexte + "/ControleurBackOff?action=_supprimer&id=";
         String tri = "";
 
         if (request.getAttribute("tri") != null) {
@@ -98,10 +99,21 @@
                 out.print("<td>");
                 out.print(lrs.getString(6));
                 out.print("</td>");
+
+                out.print("<td>");
+                out.print("<a href='" + lsSupp);
+                out.print(lrs.getString(7));
+                if (lrs.getInt(8)!=0) {
+                    out.print("'>Suppression Demandée</a>");
+                } else {
+                    out.print("'>Demande de Suppression</a>");
+                }
+                out.print("</td>");
+
                 out.print("</tr>");
+
+
             }
-
-
 
             out.print("</table>");
 
