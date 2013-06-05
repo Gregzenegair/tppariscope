@@ -61,13 +61,14 @@ public class ControleurBackOff extends HttpServlet {
                 request.setAttribute("tri", "desc");
             }
         }
+
         if (request.getParameter("action").equals("_inserer") && request.getParameter("id") != null) {
             request.setAttribute("id", request.getParameter("id"));
         }
         if (request.getParameter("action").equals("_insererValidation")) {
             CRUD crud = new CRUD("pariscope");
             crud.insertInto("concerts", CRUD.genInsert("7",
-                    "id_categorie", "titre", "date_concert", "lieu", "prix", "description", "lien_reservation",
+                    "id_categorie", "titre", "date_concert", "id_lieu", "prix", "description", "lien_reservation",
                     request.getParameter("categorie").toString(),
                     request.getParameter("titre").toString(),
                     request.getParameter("date").toString(),
@@ -86,7 +87,7 @@ public class ControleurBackOff extends HttpServlet {
                     "id_categorie", request.getParameter("categorie").toString(),
                     "titre", request.getParameter("titre").toString(),
                     "date_concert", request.getParameter("date").toString(),
-                    "lieu", request.getParameter("lieu").toString(),
+                    "id_lieu", request.getParameter("lieu").toString(),
                     "prix", request.getParameter("prix").toString(),
                     "description", request.getParameter("description").toString(),
                     "lien_reservation", request.getParameter("lien").toString()),
@@ -97,6 +98,18 @@ public class ControleurBackOff extends HttpServlet {
             request.setAttribute("resultset", lrs);
         }
 
+
+        if (request.getParameter("action").equals("_supprimer")) {
+            CRUD crud = new CRUD("pariscope");
+            crud.updateWhere("concerts",
+                    CRUD.genCondition(
+                    "demande_sup", "1"),
+                    CRUD.genCondition("id_concert", request.getParameter("id")));
+
+            lsNomPageInclusion = "_accueil.jsp";
+            ResultSet lrs = crud.selectAllCC();
+            request.setAttribute("resultset", lrs);
+        }
 
         request.setAttribute("inclusion", lsNomPageInclusion);
         getServletContext().getRequestDispatcher("/WEB-INF/jsp_back/BackOff.jsp").forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
