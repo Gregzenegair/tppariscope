@@ -47,8 +47,9 @@ article form label.input{
     display: inline-block;
 }
 
-a {
+a, a:hover, a:focus, a:active {
     text-decoration: none;
     font-weight: bold;
+    color: blue;
 }
 
