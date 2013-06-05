@@ -45,7 +45,7 @@ public class ControleurBackOff extends HttpServlet {
             CRUD crud = new CRUD("pariscope");
 
             if (request.getParameter("tri") == null) {
-                ResultSet lrs = crud.selectAllDate("concerts");
+                ResultSet lrs = crud.selectAllCC();
                 request.setAttribute("resultset", lrs);
             } else if (request.getParameter("tri").equals("asc")) {
                 ResultSet lrs = crud.selectAllASC("concerts", request.getParameter("colonne"));
