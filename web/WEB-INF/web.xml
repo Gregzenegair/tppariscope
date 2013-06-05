@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    
     <servlet>
         <servlet-name>ControleurBackOff</servlet-name>
         <servlet-class>tp.servlet.ControleurBackOff</servlet-class>
     </servlet>
-    
-     <servlet-mapping>
+    <servlet>
+        <servlet-name>ControleurAdmin</servlet-name>
+        <servlet-class>tp.servlet.ControleurAdmin</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>ControleurBackOff</servlet-name>
         <url-pattern>/ControleurBackOff</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ControleurUtilisateur</servlet-name>
         <servlet-class>tp.servlet.ControleurUtilisateur</servlet-class>
     </servlet>
-    
-   <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ControleurUtilisateur</servlet-name>
         <url-pattern>/ControleurUtilisateur</url-pattern>
     </servlet-mapping>
-    
-    
+    <servlet-mapping>
+        <servlet-name>ControleurAdmin</servlet-name>
+        <url-pattern>/ControleurAdmin</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

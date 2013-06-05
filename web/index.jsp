@@ -17,7 +17,7 @@
     <body>
         <form action="/tppariscope/ControleurUtilisateur" method="post">
             Login:<input type="text" name="login" />
-            Mot de passe:<input type="password" name="mdp" />
+            Mot de passe:<input type="password" name="mdp"  />
             <input type="hidden" name="action" value="checkUtilisateur"/>
             <input type="submit"/>
         </form>

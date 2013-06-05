@@ -16,19 +16,22 @@
         <%@include  file="_header.jsp" %>
         <%@include  file="_menu.jsp" %>
         <article>
-            
+
             <%
                 String lsPageIncluse = "";
                 // Si des parametres sont a passer a la page incluse
                 String lsParametre = "";
+
+                if (request.getParameter("utilisateur").equals("admin")) {
+            %>
+            <jsp:include page="_admin.jsp" flush="true"/>
+            <%                    }
 
                 if (request.getAttribute("inclusion") != null) {
                     lsPageIncluse = request.getAttribute("inclusion").toString();
                 } else {
                     lsPageIncluse = "_accueil.jsp";
                 }
-                
-                out.print(request.getParameter("utilisateur"));
 
             %>
 
