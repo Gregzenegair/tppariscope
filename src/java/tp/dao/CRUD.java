@@ -35,7 +35,7 @@ public class CRUD {
             // la classe du pilote avec Class.forName
             Class.forName("org.gjt.mm.mysql.Driver");
             //la connexion avec DriverManager.getConnection
-            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/", "root", "");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/", "user", "1234");
             /*
              * on ouvre le curseur et on le définie dans l'objet et on le fermera avec deco()
              * objet statement qui va permettre les instruction/commande
@@ -55,7 +55,7 @@ public class CRUD {
     public CRUD(String sNomBase) {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
-            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/" + sNomBase, "root", "");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/" + sNomBase, "user", "1234");
             this.instruction = this.connexion.createStatement();
             //pour le teste on affiche dans la console si l'opération à réussie
             System.out.println("Vous êtes connecté sur la base de donnée: " + sNomBase + ".");

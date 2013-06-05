@@ -47,14 +47,13 @@ public class ControleurBackOff extends HttpServlet {
             ResultSet lrs = crud.selectAll("concerts");
             request.setAttribute("resultset", lrs);
         }
-        if (request.getParameter("action").equals("_inserer") && request.getParameter("id") != null) {
+        if (request.getParameter("action").equals("_inserer")&& request.getParameter("id") != null) {
             request.setAttribute("id", request.getParameter("id"));
         }
         if (request.getParameter("action").equals("_insererValidation")) {
             CRUD crud = new CRUD("pariscope");
-            crud.insertInto("concerts",
-                    CRUD.genInsert("7",
-                    "id_categorie", "titre", "date", "lieu", "prix", "description", "lien_reservation",
+            crud.insertInto("concerts",CRUD.genInsert("7",
+                    "id_categorie", "titre", "date_concert", "lieu", "prix", "description", "lien_reservation",
                     request.getParameter("categorie").toString(),
                     request.getParameter("titre").toString(),
                     request.getParameter("date").toString(),
@@ -71,12 +70,12 @@ public class ControleurBackOff extends HttpServlet {
                     CRUD.genCondition(
                     "id_categorie",request.getParameter("categorie").toString(),
                     "titre",request.getParameter("titre").toString(),
-                    "date",request.getParameter("date").toString(),
+                    "date_concert",request.getParameter("date").toString(),
                     "lieu",request.getParameter("lieu").toString(),
                     "prix",request.getParameter("prix").toString(),
                     "description",request.getParameter("description").toString(),
                     "lien_reservation",request.getParameter("lien").toString()),
-                    CRUD.genCondition("id",request.getParameter("id"))
+                    CRUD.genCondition("id_concert",request.getParameter("id"))
                     );
                     
             lsNomPageInclusion = "_accueil.jsp";
