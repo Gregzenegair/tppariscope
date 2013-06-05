@@ -7,6 +7,7 @@ package tp.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,39 @@ public class ControleurBackOff extends HttpServlet {
                 request.setAttribute("tri", "desc");
                 request.setAttribute("resultset", lrs);
             }
+        }
+        if (request.getParameter("action").equals("_inserer")&& request.getParameter("id") != null) {
+            request.setAttribute("id", request.getParameter("id"));
+        }
+        if (request.getParameter("action").equals("_insererValidation")) {
+            CRUD crud = new CRUD("pariscope");
+            crud.insertInto("concerts",CRUD.genInsert("7",
+                    "id_categorie", "titre", "date_concert", "lieu", "prix", "description", "lien_reservation",
+                    request.getParameter("categorie").toString(),
+                    request.getParameter("titre").toString(),
+                    request.getParameter("date").toString(),
+                    request.getParameter("lieu").toString(),
+                    request.getParameter("prix").toString(),
+                    request.getParameter("description").toString(),
+                    request.getParameter("lien").toString()));
+            lsNomPageInclusion = "_inserer.jsp";
+        }
+        
+        if (request.getParameter("action").equals("_modifierValidation")) {
+            CRUD crud = new CRUD("pariscope");
+            crud.updateWhere("concerts",
+                    CRUD.genCondition(
+                    "id_categorie",request.getParameter("categorie").toString(),
+                    "titre",request.getParameter("titre").toString(),
+                    "date_concert",request.getParameter("date").toString(),
+                    "lieu",request.getParameter("lieu").toString(),
+                    "prix",request.getParameter("prix").toString(),
+                    "description",request.getParameter("description").toString(),
+                    "lien_reservation",request.getParameter("lien").toString()),
+                    CRUD.genCondition("id_concert",request.getParameter("id"))
+                    );
+                    
+            lsNomPageInclusion = "_accueil.jsp";
         }
 
         getServletContext().getRequestDispatcher("/jsp_back/BackOff.jsp").forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
