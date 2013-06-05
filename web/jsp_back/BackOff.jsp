@@ -9,7 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link href="/tppariscope/css/backoff_style.css" rel="stylesheet">
+        <title>Back_Off</title>
     </head>
     <body>
         <%@include  file="_header.jsp" %>
