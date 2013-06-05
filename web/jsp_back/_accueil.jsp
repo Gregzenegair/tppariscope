@@ -8,16 +8,60 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <article>
     BIENVENUE  sur le back off de pariscope
-    <br>
+    <br> 
     <%
         String lsContexte = request.getContextPath();
+        String lsTri = lsContexte + "/ControleurBackOff?action=_accueil";
         String lsURL = lsContexte + "/ControleurBackOff?action=_inserer&id=";
+        String tri = "";
 
+        if (request.getAttribute("tri") != null) {
+            tri = request.getAttribute("tri").toString();
+        }
+        
         if (request.getAttribute("resultset") != null) {
             ResultSet lrs = (ResultSet) request.getAttribute("resultset");
+            
 
             out.print("<table>");
+            out.print("<tr>");
+            
 
+            if (tri.equals("asc")) {
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=id'>v</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=date'>v</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=lieu'>v</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=prix'>v</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=description'>v</a>");
+                out.print("</td>");
+            } else {
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=id'>^</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=date'>^</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=lieu'>^</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=prix'>^</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=description'>^</a>");
+                out.print("</td>");
+            }
+
+            out.print("</tr>");
 
             while (lrs.next()) {
                 out.print("<tr>");
@@ -53,5 +97,5 @@
             out.print("erreur attribut resulset inexistant");
         }
     %>
-<br>
+    <br>
 </article>

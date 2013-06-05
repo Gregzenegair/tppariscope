@@ -79,10 +79,41 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
 
+    public ResultSet selectAllASC(String sNomTable, String sColonneTrie) {
+        ResultSet lrsCurseur = null;
+        try {
+            lrsCurseur = this.instruction.executeQuery("SELECT * FROM " + sNomTable + " WHERE date > now() ORDER BY " + sColonneTrie + " ASC");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+
+    public ResultSet selectAllDESC(String sNomTable, String sColonneTrie) {
+        ResultSet lrsCurseur = null;
+        try {
+            lrsCurseur = this.instruction.executeQuery("SELECT * FROM " + sNomTable + " WHERE date > now() ORDER BY " + sColonneTrie + " DESC");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+
+      public ResultSet selectAllDate(String sNomTable) {
+        ResultSet lrsCurseur = null;
+        try {
+            lrsCurseur = this.instruction.executeQuery("SELECT * FROM " + sNomTable + " WHERE date > now()");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+    
+    
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
      */
-    public ResultSet selectFrom(String sNomTable,String[] sNomCol ) {
+    public ResultSet selectFrom(String sNomTable, String[] sNomCol) {
         ResultSet lrsCurseur = null;
         StringBuilder sbRequete = new StringBuilder("SELECT ");
         for (int i = 0; i < sNomCol.length; i++) {
@@ -105,7 +136,7 @@ public class CRUD {
     /*
      * SELECT colonne FROM table WHERE récupère les colonnes séléctionné
      */
-    public ResultSet selectWhere(String sNomTable, String[] sNomCol, ArrayList<String[]> sCondition ) {
+    public ResultSet selectWhere(String sNomTable, String[] sNomCol, ArrayList<String[]> sCondition) {
         ResultSet lrsCurseur = null;
         StringBuilder sbRequete = new StringBuilder("SELECT ");
         for (int i = 0; i < sNomCol.length; i++) {
@@ -158,7 +189,7 @@ public class CRUD {
      * UPDATE nom table SET col 1 = valeur, etc.... WHERE condition;
      * fonctionnera avec deux arraylist générés
      */
-    public void updateWhere(String sNomTable, ArrayList<String[]> sValeur,ArrayList<String[]> sCondition) {
+    public void updateWhere(String sNomTable, ArrayList<String[]> sValeur, ArrayList<String[]> sCondition) {
         StringBuilder sbRequete = new StringBuilder("UPDATE ");
         sbRequete.append(sNomTable);
         sbRequete.append(" SET ");
@@ -197,8 +228,7 @@ public class CRUD {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }/// UPDATE 
-    
-    
+
     /*
      * DELETE FROM table WHERE condition
      * fonctionne avec le generateur de condition genCondition
