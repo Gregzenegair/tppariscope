@@ -17,4 +17,21 @@
         <input type="hidden" name="action" value="_accueil">
         <input type="submit" value="accueil">
     </form>
+    <%
+        if (request.getSession().getAttribute("utilisateur").equals("admin")) {
+    %>
+    <form action="/tppariscope/ControleurAdmin" method="post">
+        <input type="hidden" name="page" value="_insereRedac">
+        <input type="submit" value="Inserer Utilisateur">
+    </form>
+    <form action="/tppariscope/ControleurAdmin" method="post">
+        <input type="hidden" name="page" value="_modifRedac">
+        <input type="submit" value="Modifier Utilisateur">
+    </form>
+    <form action="/tppariscope/ControleurAdmin" method="post">
+        <input type="hidden" name="page" value="_validerSupp">
+        <input type="submit" value="Valider Suppression">
+    </form>
+    <%        }
+    %>
 </nav>
