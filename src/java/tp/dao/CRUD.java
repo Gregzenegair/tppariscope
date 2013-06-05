@@ -82,7 +82,7 @@ public class CRUD {
     public ResultSet selectAllASC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT * FROM " + sNomTable + " WHERE date > now() ORDER BY " + sColonneTrie + " ASC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.lieu, co.prix FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now() ORDER BY " + sColonneTrie + " ASC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,17 +92,18 @@ public class CRUD {
     public ResultSet selectAllDESC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT * FROM " + sNomTable + " WHERE date > now() ORDER BY " + sColonneTrie + " DESC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.lieu, co.prix FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now() ORDER BY " + sColonneTrie + " DESC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lrsCurseur;
     }/// SELECT *
 
-      public ResultSet selectAllDate(String sNomTable) {
+      public ResultSet selectAllCC() {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT * FROM " + sNomTable + " WHERE date > now()");
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.lieu, co.prix FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now()");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
