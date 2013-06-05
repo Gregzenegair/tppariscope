@@ -56,8 +56,8 @@ public class ControleurBackOff extends HttpServlet {
                 request.setAttribute("tri", "asc");
             } else if (request.getParameter("tri").equals("desc")) {
                 ResultSet lrs = crud.selectAllDESC("concerts", request.getParameter("colonne"));
-                request.setAttribute("tri", "desc");
                 request.setAttribute("resultset", lrs);
+                request.setAttribute("tri", "desc");
             }
         }
         if (request.getParameter("action").equals("_inserer") && request.getParameter("id") != null) {
