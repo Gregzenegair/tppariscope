@@ -1,0 +1,17 @@
+/* 
+    Document   : accueil
+    Created on : 4 juin 2013, 17:08:29
+    Author     : Gregzenegair
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
