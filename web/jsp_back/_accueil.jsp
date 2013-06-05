@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <article>
     BIENVENUE  sur le back off de pariscope
-    <br>
+    <br> 
     <%
         String lsContexte = request.getContextPath();
         String lsTri = lsContexte + "/ControleurBackOff?action=_accueil";
