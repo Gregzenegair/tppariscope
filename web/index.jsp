@@ -15,10 +15,10 @@
         %>
     </head>
     <body>
-        <form action="/tppariscope/ControleurBackOff" method="post">
+        <form action="/tppariscope/ControleurUtilisateur" method="post">
             Login:<input type="text" name="login" />
             Mot de passe:<input type="password" name="mdp" />
-            <input type="hidden" name="autent" value="checkUtilisateur"/>
+            <input type="hidden" name="action" value="checkUtilisateur"/>
             <input type="submit"/>
         </form>
     </body>

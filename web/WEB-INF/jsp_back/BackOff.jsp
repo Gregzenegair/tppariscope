@@ -5,9 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
- if ( request.getAttribute("autent") != null &&  request.getAttribute("autent").equals(true)) {
-%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +16,7 @@
         <%@include  file="_header.jsp" %>
         <%@include  file="_menu.jsp" %>
         <article>
-
+            
             <%
                 String lsPageIncluse = "";
                 // Si des parametres sont a passer a la page incluse
@@ -29,7 +27,8 @@
                 } else {
                     lsPageIncluse = "_accueil.jsp";
                 }
-
+                
+                out.print(request.getParameter("utilisateur"));
 
             %>
 
@@ -42,10 +41,3 @@
         <%@include  file="_footer.jsp" %>
     </body>
 </html>
-<%
-    } else {
-        String lsContexte = request.getContextPath();
-        String lsURL = lsContexte + "/index.jsp";
-        out.println("<meta http-equiv='refresh' content='1; url=" + lsURL + "' />");
-    }
-%>

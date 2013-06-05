@@ -35,7 +35,7 @@ public class CRUD {
             // la classe du pilote avec Class.forName
             Class.forName("org.gjt.mm.mysql.Driver");
             //la connexion avec DriverManager.getConnection
-            this.connexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/", "root", "");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/", "user", "1234");
             /*
              * on ouvre le curseur et on le définie dans l'objet et on le fermera avec deco()
              * objet statement qui va permettre les instruction/commande
@@ -55,7 +55,7 @@ public class CRUD {
     public CRUD(String sNomBase) {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
-            this.connexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + sNomBase, "root", "");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/" + sNomBase, "user", "1234");
             this.instruction = this.connexion.createStatement();
             //pour le teste on affiche dans la console si l'opération à réussie
             System.out.println("Vous êtes connecté sur la base de donnée: " + sNomBase + ".");
@@ -82,7 +82,7 @@ public class CRUD {
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
      */
-    public ResultSet selectFrom(String sNomTable,String[] sNomCol ) {
+    public ResultSet selectFrom(String sNomTable, String[] sNomCol) {
         ResultSet lrsCurseur = null;
         StringBuilder sbRequete = new StringBuilder("SELECT ");
         for (int i = 0; i < sNomCol.length; i++) {
@@ -105,7 +105,7 @@ public class CRUD {
     /*
      * SELECT colonne FROM table WHERE récupère les colonnes séléctionné
      */
-    public ResultSet selectWhere(String sNomTable, String[] sNomCol, ArrayList<String[]> sCondition ) {
+    public ResultSet selectWhere(String sNomTable, String[] sNomCol, ArrayList<String[]> sCondition) {
         ResultSet lrsCurseur = null;
         StringBuilder sbRequete = new StringBuilder("SELECT ");
         for (int i = 0; i < sNomCol.length; i++) {
@@ -158,7 +158,7 @@ public class CRUD {
      * UPDATE nom table SET col 1 = valeur, etc.... WHERE condition;
      * fonctionnera avec deux arraylist générés
      */
-    public void updateWhere(String sNomTable, ArrayList<String[]> sValeur,ArrayList<String[]> sCondition) {
+    public void updateWhere(String sNomTable, ArrayList<String[]> sValeur, ArrayList<String[]> sCondition) {
         StringBuilder sbRequete = new StringBuilder("UPDATE ");
         sbRequete.append(sNomTable);
         sbRequete.append(" SET ");
@@ -197,8 +197,7 @@ public class CRUD {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }/// UPDATE 
-    
-    
+
     /*
      * DELETE FROM table WHERE condition
      * fonctionne avec le generateur de condition genCondition
@@ -300,28 +299,33 @@ public class CRUD {
     }/// CREATE DATABASE
 
     //------------------------------------------------------------------------------------------------------------------
-    /*
+     /*
      * Check Utilisateur, prend en param le nom de la table a rechercher, et les deux valeurs à vérifier
      * parametre: nom de la table, intitulés a vérifier dans la bdd, les deux éléments à vérifier
+     * select login, mdp from redacteurs where login='chris' and mdp='azerty';
+
      */
-    public boolean checkUtilisateur(String sNomTable,
+    public String checkUtilisateur(String sNomTable,
             String sIntitul1, String sIntitul2, String sLogin, String sPassword) {
-        boolean boCheck = false;
+        String utilisateur = "";
+        String[] lasColonnes = {"*"};
         try {
-            ResultSet lrsCurseur = this.selectAll(sNomTable);
-            while (lrsCurseur.next()) {
-                if (lrsCurseur.getString(sIntitul1).equals(sLogin)
-                        && lrsCurseur.getString(sIntitul2).equals(sPassword)) {
-                    boCheck = true;
-                    break;
+            ResultSet lrsCurseur = this.selectWhere(sNomTable, lasColonnes, CRUD.genCondition(sIntitul1, sLogin, sIntitul2, sPassword));
+            if (lrsCurseur.next()) {
+                int rang = lrsCurseur.getInt(4);
+                if (rang == 0) {
+                    utilisateur = "redac";
                 } else {
-                    boCheck = false;
+                    utilisateur = "admin";
                 }
+            } else {
+                utilisateur = null;
             }
-        } catch (SQLException ex) {
+        } /// checkUtilisateur
+        catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return boCheck;
+        return utilisateur;
     }/// checkUtilisateur
 
     /*
