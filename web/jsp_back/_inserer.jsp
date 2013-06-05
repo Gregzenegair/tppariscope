@@ -50,8 +50,8 @@
             
             <label for="lien">lien reservation : </label>
             <input type="text" name="lien" id="lien" value="<%=lrs != null ? lrs.getString(8) : ""%>">
-            
-            <input type="submit" >
+            <br>
+            <input type="submit" class="submit" >
         </form>
     </body>
 </html>
