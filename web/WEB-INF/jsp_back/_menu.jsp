@@ -17,6 +17,7 @@
         <input type="hidden" name="action" value="_accueil">
         <input type="submit" value="accueil">
     </form>
+
     <%
         if (request.getSession().getAttribute("utilisateur").equals("admin")) {
     %>
@@ -34,4 +35,7 @@
     </form>
     <%        }
     %>
+    <form action="/tppariscope/index.jsp" method="post">
+        <input type="submit" value="Deconnexion">
+    </form>
 </nav>
