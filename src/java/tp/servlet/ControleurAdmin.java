@@ -69,7 +69,7 @@ public class ControleurAdmin extends HttpServlet {
         }
 
 
-        getServletContext().getRequestDispatcher("/WEB-INF/jsp_back/BackOff.jsp?utilisateur=admin").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/jsp_back/BackOff.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

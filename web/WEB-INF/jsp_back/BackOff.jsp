@@ -22,7 +22,7 @@
                 // Si des parametres sont a passer a la page incluse
                 String lsParametre = "";
 
-                if (request.getParameter("utilisateur").equals("admin")) {
+                if (request.getSession().getAttribute("utilisateur").equals("admin")) {
             %>
             <jsp:include page="_admin.jsp" flush="true"/>
             <%                    }
