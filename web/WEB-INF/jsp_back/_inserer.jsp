@@ -17,16 +17,14 @@
     <%
         ResultSet lrs = null;
         ResultSet lrsCategories = null;
-        String[] asCategories = new String[1];
-        asCategories[0] = "categorie";
+        String[] asCategories = new String[2];
+        //asCategories[0] = "id_categorie";
+        //asCategories[1] = "categorie";
         if (request.getAttribute("id") != null) {
             CRUD crud = new CRUD("pariscope");
             String[] element = {"*"};
-            lrs = crud.selectAllJOIN();
-            lrs.next();
-            lrsCategories = crud.selectFrom("categories", asCategories);
-            
-            ///J'en suis là
+
+            lrsCategories = crud.selectFrom("categories", element);
         }
     %>
     <body>
@@ -38,12 +36,26 @@
 
             <label for="categorie">categorie : </label>
             <select name="categorie" id="categorie">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+                <%
+                    while (lrsCategories.next()) {
+                        if (2==3) {
+                %>
+                <option value="<%=lrsCategories.getString(1).toString()%>" selected="selected"><%=lrsCategories.getString(2).toString()%></option>
+                <%
+                } else {
+                %>
+                <option value="<%=lrsCategories.getString(1).toString()%>"><%=lrsCategories.getString(2).toString()%></option>
+                <%
+                        } // --- Fin if else
+                    } // --- Fin boucle while next
+
+                    lrsCategories.close();
+                    CRUD crud = new CRUD("pariscope");
+                    lrs = crud.selectAllJOIN(request.getAttribute("id").toString());
+
+                    lrs.next();
+                %>
             </select>
-            <input type="text" name="categorie" id="categorie" value="<%=lrs != null ? lrs.getString(12) : ""%>" />
 
             <label for="titre">titre : </label>
             <input type="text" name="titre" id="categorie" value="<%=lrs != null ? lrs.getString(3) : ""%>">
@@ -52,19 +64,19 @@
             <input type="date" name="date" id="date" value="<%=lrs != null ? lrs.getString(4).toString() : ""%>">
 
             <label for="heure">heure : </label>
-            <input type="time" name="heure" id="heure" value="<%=lrs != null ? lrs.getString(5).toString() : ""%>">
+            <input type="time" name="heure" id="heure" value="<%=lrs != null ? lrs.getString(5) : ""%>">
 
             <label for="lieu">lieu : </label>
-            <input type="text" name="lieu" id="lieu" value="<%=lrs != null ? lrs.getString(6) : ""%>">
+            <input type="text" name="lieu" id="lieu" value="<%=lrs != null ? lrs.getString(6).toString() : ""%>">
 
             <label for="prix">prix : </label>
-            <input type="text" name="prix" id="prix" value="<%=lrs != null ? lrs.getString(7) : ""%>">
+            <input type="text" name="prix" id="prix" value="<%=lrs != null ? lrs.getString(7).toString() : ""%>">
 
             <label for="description">description : </label>
-            <textarea name="description" id="description" placeholder="<%=lrs != null ? lrs.getString(8) : ""%>"></textarea>
+            <textarea name="description" id="description" placeholder="<%=lrs != null ? lrs.getString(8).toString() : ""%>"></textarea>
 
             <label for="lien">lien reservation : </label>
-            <input type="text" name="lien" id="lien" value="<%=lrs != null ? lrs.getString(9) : ""%>">
+            <input type="text" name="lien" id="lien" value="<%=lrs != null ? lrs.getString(9).toString() : ""%>">
             <br>
             <input type="submit" >
         </form>

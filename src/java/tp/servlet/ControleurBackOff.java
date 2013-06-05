@@ -97,6 +97,7 @@ public class ControleurBackOff extends HttpServlet {
 
             lsNomPageInclusion = "_accueil.jsp";
             ResultSet lrs = crud.selectAllCC();
+            request.setAttribute("id_categorie", request.getParameter("categorie"));
             request.setAttribute("resultset", lrs);
         }
 
