@@ -18,21 +18,29 @@
         if (request.getAttribute("tri") != null) {
             tri = request.getAttribute("tri").toString();
         }
-        
+
         if (request.getAttribute("resultset") != null) {
             ResultSet lrs = (ResultSet) request.getAttribute("resultset");
-            
+
 
             out.print("<table>");
             out.print("<tr>");
-            
+
 
             if (tri.equals("asc")) {
+
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=id'>v</a>");
+                //td vide
+                out.print("</td>");
+
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=categorie'>v</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=date'>v</a>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=titre'>v</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=date_concert'>v</a>");
                 out.print("</td>");
                 out.print("<td>");
                 out.print("<a href='" + lsTri + "&tri=desc&colonne=lieu'>v</a>");
@@ -40,24 +48,24 @@
                 out.print("<td>");
                 out.print("<a href='" + lsTri + "&tri=desc&colonne=prix'>v</a>");
                 out.print("</td>");
-                out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=description'>v</a>");
-                out.print("</td>");
             } else {
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=id'>^</a>");
+                //td vide
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=date'>^</a>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=categorie'>^</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=titre'>^</a>");
+                out.print("</td>");
+                out.print("<td>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=date_concert'>^</a>");
                 out.print("</td>");
                 out.print("<td>");
                 out.print("<a href='" + lsTri + "&tri=asc&colonne=lieu'>^</a>");
                 out.print("</td>");
                 out.print("<td>");
                 out.print("<a href='" + lsTri + "&tri=asc&colonne=prix'>^</a>");
-                out.print("</td>");
-                out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=description'>^</a>");
                 out.print("</td>");
             }
 
@@ -72,6 +80,14 @@
                 out.print("</td>");
 
                 out.print("<td>");
+                out.print(lrs.getString(2));
+                out.print("</td>");
+
+                out.print("<td>");
+                out.print(lrs.getString(3));
+                out.print("</td>");
+
+                out.print("<td>");
                 out.print(lrs.getString(4));
                 out.print("</td>");
 
@@ -81,10 +97,6 @@
 
                 out.print("<td>");
                 out.print(lrs.getString(6));
-                out.print("</td>");
-
-                out.print("<td>");
-                out.print(lrs.getString(7));
                 out.print("</td>");
                 out.print("</tr>");
             }
@@ -96,6 +108,7 @@
         } else {
             out.print("erreur attribut resulset inexistant");
         }
+
     %>
     <br>
 </article>
