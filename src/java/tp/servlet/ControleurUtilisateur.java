@@ -39,9 +39,11 @@ public class ControleurUtilisateur extends HttpServlet {
             String utilisateur = database.checkUtilisateur("redacteurs", "login", "mdp", login, mdp);
             if (utilisateur.equals("admin")) {
                 request.getSession().setAttribute("utilisateur", "admin");
+              
                 redirection = "/ControleurBackOff?action=_accueil";
             } else if (utilisateur.equals("redac")) {
                 request.getSession().setAttribute("utilisateur", "redac");
+             
                 redirection = "/ControleurBackOff?action=_accueil";
             } else {
                 redirection = "/index.jsp";

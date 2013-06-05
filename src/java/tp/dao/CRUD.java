@@ -55,7 +55,7 @@ public class CRUD {
     public CRUD(String sNomBase) {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
-            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/" + sNomBase, "user", "1234");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + sNomBase, "root", "");
             this.instruction = this.connexion.createStatement();
             //pour le teste on affiche dans la console si l'opération à réussie
             System.out.println("Vous êtes connecté sur la base de donnée: " + sNomBase + ".");
