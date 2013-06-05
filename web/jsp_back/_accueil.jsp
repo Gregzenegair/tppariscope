@@ -75,7 +75,7 @@
                 out.print("<tr>");
                 out.print("<td>");
                 out.print("<a href='" + lsURL);
-                out.print(lrs.getString(1));
+                out.print(lrs.getString(7));
                 out.print("'>Modifier</a>");
                 out.print("</td>");
 

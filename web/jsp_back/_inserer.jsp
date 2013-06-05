@@ -18,7 +18,7 @@
         ResultSet lrs = null;
         if (request.getAttribute("id") != null) {
             CRUD crud = new CRUD("pariscope");
-            ArrayList<String[]> condition = crud.genCondition("id", request.getAttribute("id").toString());
+            ArrayList<String[]> condition = crud.genCondition("id_concert", request.getAttribute("id").toString());
             String[] element = {"*"};
             lrs = crud.selectWhere("concerts", element, condition);
             lrs.next();
@@ -29,7 +29,7 @@
         <form action="/tppariscope/ControleurBackOff" method="post">
             <input type="hidden" name="action" value="<%=request.getAttribute("id") != null ?"_modifierValidation" :"_insererValidation"%>">
             <%if (request.getAttribute("id") != null) {
-            %><input type="hidden" name="id" value=<%=request.getAttribute("id")%>/><%}%>
+            %><input type="hidden" name="id" value="<%=request.getAttribute("id")%>"/><%}%>
             <input type="hidden" name="id" value="<%=request.getAttribute("id") != null ? request.getAttribute("id") : ""%>">
 
             <label for="categorie">categorie : </label>
