@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="/tppariscope/css/.css" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Utilisation du controleur -->
         <%
