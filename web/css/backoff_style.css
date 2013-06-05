@@ -1,0 +1,54 @@
+/* 
+    Document   : accueil
+    Created on : 4 juin 2013, 17:08:29
+    Author     : Gregzenegair
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+    
+}
+body{
+     text-align: center;
+}
+header,
+footer{
+    background-color: darkgray;
+}
+header *,
+footer *{
+    display: inline; 
+}
+header h1{
+    margin-right: 3rem; 
+}
+nav{
+    background-color: gray;
+}
+nav *{
+    display: inline;
+    width: 10rem;
+}
+article{
+    background-color: lightgray;
+    border: 2px solid darkgrey;
+}
+article td{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+article form label{
+    display: block;
+}
+article form .submit,
+article form label.input{
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
