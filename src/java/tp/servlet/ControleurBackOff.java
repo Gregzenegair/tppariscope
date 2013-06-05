@@ -76,6 +76,7 @@ public class ControleurBackOff extends HttpServlet {
                     request.getParameter("description").toString(),
                     request.getParameter("lien").toString()));
             lsNomPageInclusion = "_inserer.jsp";
+            request.setAttribute("message", "le concert a été ajouté");
         }
 
         if (request.getParameter("action").equals("_modifierValidation")) {
