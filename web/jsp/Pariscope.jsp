@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link href="/tppariscope/css/gangnam_style.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Quicksand|Raleway:400,100' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:100' rel='stylesheet' type='text/css'>
         <title>Pariscope</title>
     </head>
     <body>

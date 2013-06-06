@@ -117,12 +117,24 @@ public class ControleurAdmin extends HttpServlet {
                     request.setAttribute("suppOK", "Suppression validée.");;
                     request.setAttribute("inclusion", "_modifRedac.jsp");
                     break;
+                case "supprimerAnnuler":
+                    String id = request.getParameter("id");
+                    CRUD supprimerAnnuler = new CRUD("pariscope");
+                    supprimerAnnuler.updateWhere("concerts",
+                    CRUD.genCondition(
+                    "demande_sup", "0"),
+                    CRUD.genCondition("id_concert", id));
+                    
+                    ResultSet lrs = supprimerAnnuler.selectAllCCAnnuler();
+                    request.setAttribute("resultset", lrs);
+                    request.setAttribute("inclusion", "_validerSupp.jsp");
+                    break;    
                     
                 case "modifRedac":
                     String loginUp = request.getParameter("login");
                     String mdpUp = request.getParameter("mdp");
                     String[] checkedUp = request.getParameterValues("admin");
-                    String id = request.getParameter("idmodif");
+                    String id2 = request.getParameter("idmodif");
                     int adminUp;
                     if (checkedUp != null) {
                         adminUp = 1;
@@ -132,7 +144,7 @@ public class ControleurAdmin extends HttpServlet {
                     //on update dans la bdd 
                     connexion.updateWhere("redacteurs", 
                             CRUD.genCondition("login",loginUp,"mdp",mdpUp,"administrateur",Integer.toString(adminUp)), 
-                            CRUD.genCondition("id_redacteur",id));
+                            CRUD.genCondition("id_redacteur",id2));
                     
                     request.setAttribute("updateOK", "Utilisateur modifié !");
                     ResultSet rsUtilisateur = connexion.selectAll("redacteurs");

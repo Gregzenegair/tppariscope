@@ -7,55 +7,55 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id='centre'>
 <article>
-        <h1>Concerts Clasique</h1>
+        <h1>concerts clasique</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Concerts Hors Paris</h1>
+        <h1>concerts hors paris</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Musique du monde</h1>
+        <h1>musique du monde</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Danse</h1>
+        <h1>danse</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Opéras</h1>
+        <h1>opéras</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Variétés</h1>
+        <h1>variétés</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Jazz</h1>
+        <h1>jazz</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Pop-rock</h1>
+        <h1>pop-rock</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
 </article>
 <article>
-        <h1>Musique électronique</h1>
+        <h1>musique électronique</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
