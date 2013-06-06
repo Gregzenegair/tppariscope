@@ -45,7 +45,7 @@ public class ControleurAdmin extends HttpServlet {
                 case "_modifUnRedac":
                     if (request.getParameter("id") != null) {
                         String[] lasUtilisateur = {"*"};
-                        ResultSet rsRedacteur = modifUtilisateur.selectWhere("redacteurs", lasUtilisateur, CRUD.genCondition("id", request.getParameter("id")));
+                        ResultSet rsRedacteur = modifUtilisateur.selectWhere("redacteurs", lasUtilisateur, CRUD.genCondition("id_redacteur", request.getParameter("id")));
                         request.setAttribute("un_utilisateur", rsRedacteur);
                     }
 
