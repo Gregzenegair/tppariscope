@@ -6,5 +6,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer>
-    FOOTER DU BACK OFF
+    Valentin Jouanne | Christophe Pavia | Grégory Hrycaj | All right reserved NextFormation 2013
 </footer>

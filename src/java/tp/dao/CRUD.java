@@ -131,6 +131,17 @@ public class CRUD {
         }
         return lrsCurseur;
     }/// SELECT *
+    
+        public ResultSet selectAllLigArtistes(String sid) {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT lig.id_ligconcert, lig.id_concert, lig.id_artiste FROM ligartistes lig  WHERE lig.id_concert = '" + sid + "'");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
 
     public ResultSet selectRechercher(String recherche) {
         ResultSet lrsCurseur = null;

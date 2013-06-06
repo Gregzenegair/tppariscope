@@ -76,34 +76,42 @@ public class ControleurBackOff extends HttpServlet {
 
 
 
-        if (request.getParameter("action").equals("_nouveauLigartites")) {
+        if (request.getParameter("action").equals("_nouveauLigartistes")) {
 
             CRUD crud = new CRUD("pariscope");
             ResultSet lrsArtistes = crud.selectAll("artistes");
 
             try {
                 lrsArtistes.last();
-                int rowCount = lrsArtistes.getRow();
 
-                int i = 1;
-                String[] asCheckArtistes = new String[rowCount + 1];
+                int i = 0;
+                String[] asCheckArtistes = asCheckArtistes = request.getParameterValues("checkartistes");
 
-                while (i <= rowCount) {
-                    asCheckArtistes[i] = request.getParameter("checkartistes[" + i + "]");
+                while (i < asCheckArtistes.length) {
+                    
 
-                    crud.insertInto("ligartistes",
-                            CRUD.genInsert("2", "id_concert", "id_artiste", request.getParameter("id"), asCheckArtistes[i]));
+                    if (asCheckArtistes[i] == null) { /// A debugger !!!!!
+                        crud.deleteWhere("ligartistes", CRUD.genCondition("id_artiste", String.valueOf(i), "id_concert", request.getParameter("id")));
+                    } else {
+
+                        crud.insertInto("ligartistes",
+                                CRUD.genInsert("2", "id_concert", "id_artiste", request.getParameter("id"), asCheckArtistes[i]));
+
+                    }
                     i++;
                 }
             } catch (SQLException e) {
             }
-            
+
             ResultSet lrs = crud.selectAllCC();
             request.setAttribute("resultset", lrs);
             request.setAttribute("id", request.getParameter("id"));
             request.setAttribute("message", "<span class='message'>Artiste(s) défini(s)</span>");
             lsNomPageInclusion = "_accueil.jsp";
         }
+        
+        
+        
 
 
         if (request.getParameter("action").equals("_inserer") && request.getParameter("id") != null) {

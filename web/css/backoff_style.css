@@ -24,6 +24,12 @@ footer *{
 header h1{
     margin-right: 3rem; 
 }
+
+footer {
+     font-variant: small-caps;
+     padding: 10px;
+}
+
 nav{
     background-color: gray;
 }
@@ -57,7 +63,7 @@ a, a:focus, a:active {
 a:hover {
     text-decoration: none;
     font-weight: bold;
-    color: green;
+    color: orangered;
     transition: all 1s;
 }
 
@@ -67,4 +73,9 @@ a:hover {
 
 .message {
     color: orangered;
+}
+
+input[type=text] {
+    width: 14em;
+    text-align: left;
 }

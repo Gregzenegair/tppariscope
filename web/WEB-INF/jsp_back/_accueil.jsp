@@ -7,7 +7,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <article>
-    BIENVENUE  sur le back off de pariscope
+    BIENVENUE sur le back off de pariscope
     <br> 
     <%
         String lsContexte = request.getContextPath();
