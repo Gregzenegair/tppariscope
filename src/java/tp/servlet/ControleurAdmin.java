@@ -88,7 +88,11 @@ public class ControleurAdmin extends HttpServlet {
                             + "<form action=\"/tppariscope/ControleurAdmin\" method=\"post\">"
                             + "<input type=\"hidden\" name=\"action\" value=\"suppValider\" />"
                             + "<input type=\"hidden\" name=\"name\" value=\""+request.getParameter("name")+"\" />"
-                            + "<input type=\"submit\" value=\"Valider Suppression\"/></form>";
+                            + "<input type=\"submit\" value=\"Valider Suppression\"/></form>"
+                            + "<form action=\"/tppariscope/ControleurAdmin\" method=\"post\">"
+                            + "<input type=\"hidden\" name=\"page\" value=\"_modifRedac\" />"
+                            + "<input type=\"submit\" value=\"Annuler\"/>"
+                            + "</form>";
                     request.setAttribute("suppOK", valideSuppression);
                     request.setAttribute("inclusion", "_modifRedac.jsp");
                     break;
