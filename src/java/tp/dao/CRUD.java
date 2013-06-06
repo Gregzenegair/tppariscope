@@ -126,15 +126,37 @@ public class CRUD {
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
             lrsCurseur = this.instruction.executeQuery("SELECT * FROM  concerts co JOIN categories ca JOIN lieux li WHERE id_concert = '" + sid + "' AND co.id_categorie = ca.id_categorie AND co.id_lieu = li.id_lieu");
+
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lrsCurseur;
     }/// SELECT *
 
+    public ResultSet selectRechercher(String recherche) {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            String requete = "SELECT ca.id_categorie , ca.categorie , co.titre , co.date_concert , co.id_lieu , co.prix , ca.categorie , co.demande_sup"
+                    + " FROM concerts co JOIN categories ca JOIN lieux li"
+                    + " WHERE co.id_categorie = ca.id_categorie"
+                    + " AND li.id_lieu = co.id_lieu"
+                    + " AND(co.titre like '%" + recherche + "%'"
+                    + " OR  li.adresse like'%" + recherche + "%'"
+                    + " OR ca.categorie like '%" + recherche + "%'"
+                    + " OR co.description like '%" + recherche + "%'"
+                    + ")";
+            lrsCurseur = this.instruction.executeQuery(requete);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
      */
+
     public ResultSet selectFrom(String sNomTable, String[] sNomCol) {
         ResultSet lrsCurseur = null;
         StringBuilder sbRequete = new StringBuilder("SELECT ");
@@ -183,6 +205,42 @@ public class CRUD {
                 break;
             }
             sbRequete.append(" AND ");
+        }// For
+        // test affichage requete
+        System.out.println(sbRequete.toString());
+        try {
+            lrsCurseur = this.instruction.executeQuery(sbRequete.toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT colonne FROM table WHERE condition AND condition.....
+
+    public ResultSet selectWhereOr(String sNomTable, String[] sNomCol, ArrayList<String[]> sCondition) {
+        ResultSet lrsCurseur = null;
+        StringBuilder sbRequete = new StringBuilder("SELECT ");
+        for (int i = 0; i < sNomCol.length; i++) {
+            sbRequete.append(sNomCol[i]);
+            if (i == sNomCol.length - 1) {
+                break;
+            }
+            sbRequete.append(" , ");
+        }// For
+        sbRequete.append(" FROM ");
+        sbRequete.append(sNomTable);
+        sbRequete.append(" WHERE ");
+        //insertion des conditions
+        for (int i = 0; i < sCondition.size(); i++) {
+            // on récupere le tableau clé valeur
+            String[] tsCondition = sCondition.get(i);
+            //on boucle le contenu du tableau et on l'append au stringbuilder
+            sbRequete.append(tsCondition[0]);
+            sbRequete.append(" = ");
+            sbRequete.append(tsCondition[1]);
+            if (i == sCondition.size() - 1) {
+                break;
+            }
+            sbRequete.append(" OR ");
         }// For
         // test affichage requete
         System.out.println(sbRequete.toString());

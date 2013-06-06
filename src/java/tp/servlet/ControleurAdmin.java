@@ -64,12 +64,9 @@ public class ControleurAdmin extends HttpServlet {
                 ResultSet lrs = crud.selectAllCCAnnuler();
                 request.setAttribute("resultset", lrs);
             }
-//            if (request.getParameter("page").equals("_validerSupp")) {
-//                CRUD crud = new CRUD("pariscope");
-//                ResultSet lrs = crud.selectAllCCAnnuler();
-//                request.setAttribute("resultset", lrs);
-//            }
         }
+
+
 
         if (request.getParameter("action") != null) {
             String action = request.getParameter("action");
@@ -86,22 +83,23 @@ public class ControleurAdmin extends HttpServlet {
                         admin = 0;
                     }
                     //on insère dans la bdd 
-                    
+
                     connexion.insertInto("redacteurs",
                             CRUD.genInsert("3", "login", "mdp", "administrateur", login, mdp, Integer.toString(admin)));
                     connexion.deco();
                     request.setAttribute("insertOK", "Utilisateur enregistré !");
                     request.setAttribute("inclusion", "_insereRedac.jsp");
                     break;
+
                 case "suppUtilisateur":
-                    
+
                     ResultSet rsUtilisateurs = connexion.selectAll("redacteurs");
                     request.setAttribute("tout_utilisateurs", rsUtilisateurs);
                     // on prépare un attribut qui affichera un nouveau bouton pour confirmer la suppression
-                    String valideSuppression = "Etes vous sûr de vouloir supprimer <em>"+request.getParameter("name")+"</em> de la liste ? "
+                    String valideSuppression = "Etes vous sûr de vouloir supprimer <em>" + request.getParameter("name") + "</em> de la liste ? "
                             + "<form action=\"/tppariscope/ControleurAdmin\" method=\"post\">"
                             + "<input type=\"hidden\" name=\"action\" value=\"suppValider\" />"
-                            + "<input type=\"hidden\" name=\"name\" value=\""+request.getParameter("name")+"\" />"
+                            + "<input type=\"hidden\" name=\"name\" value=\"" + request.getParameter("name") + "\" />"
                             + "<input type=\"submit\" value=\"Valider Suppression\"/></form>"
                             + "<form action=\"/tppariscope/ControleurAdmin\" method=\"post\">"
                             + "<input type=\"hidden\" name=\"page\" value=\"_modifRedac\" />"
@@ -113,14 +111,15 @@ public class ControleurAdmin extends HttpServlet {
                 case "suppValider":
                     // on fait la requete de suppression
                     String nomSuppression = request.getParameter("name");
-                    connexion.deleteWhere("redacteurs", CRUD.genCondition("login",nomSuppression));
+                    connexion.deleteWhere("redacteurs", CRUD.genCondition("login", nomSuppression));
                     // on réaffiche le contenu
                     ResultSet rsModifRedac = connexion.selectAll("redacteurs");
                     request.setAttribute("tout_utilisateurs", rsModifRedac);
-                    request.setAttribute("suppOK", "Suppression validée.");;
+                    request.setAttribute("suppOK", "Suppression validée.");
+                    ;
                     request.setAttribute("inclusion", "_modifRedac.jsp");
                     break;
-                    
+
                 case "modifRedac":
                     String loginUp = request.getParameter("login");
                     String mdpUp = request.getParameter("mdp");
@@ -133,15 +132,40 @@ public class ControleurAdmin extends HttpServlet {
                         adminUp = 0;
                     }
                     //on update dans la bdd 
-                    connexion.updateWhere("redacteurs", 
-                            CRUD.genCondition("login",loginUp,"mdp",mdpUp,"administrateur",Integer.toString(adminUp)), 
-                            CRUD.genCondition("id_redacteur",id));
-                    
+                    connexion.updateWhere("redacteurs",
+                            CRUD.genCondition("login", loginUp, "mdp", mdpUp, "administrateur", Integer.toString(adminUp)),
+                            CRUD.genCondition("id_redacteur", id));
+
                     request.setAttribute("updateOK", "Utilisateur modifié !");
                     ResultSet rsUtilisateur = connexion.selectAll("redacteurs");
                     request.setAttribute("tout_utilisateurs", rsUtilisateur);
                     request.setAttribute("inclusion", "_modifRedac.jsp");
-                   
+
+
+                case "supprimerValider":
+                    String idValSup = request.getParameter("id");
+                    CRUD deleteArticle = new CRUD("pariscope");
+                    deleteArticle.deleteWhere("concerts",
+                            CRUD.genCondition("id_concert", idValSup));
+
+                    ResultSet lrs = deleteArticle.selectAllCCAnnuler();
+                    request.setAttribute("resultset", lrs);
+                    request.setAttribute("inclusion", "_validerSupp.jsp");
+                    break;
+
+                case "supprimerAnnuler":
+                    String idAnulSup = request.getParameter("id");
+                    CRUD supprimerAnnuler = new CRUD("pariscope");
+                    supprimerAnnuler.updateWhere("concerts",
+                            CRUD.genCondition(
+                            "demande_sup", "0"),
+                            CRUD.genCondition("id_concert", idAnulSup));
+
+                    lrs = supprimerAnnuler.selectAllCCAnnuler();
+                    request.setAttribute("resultset", lrs);
+                    request.setAttribute("inclusion", "_validerSupp.jsp");
+
+
                     break;
                 default:
                     request.setAttribute("inclusion", "_accueil.jsp");
