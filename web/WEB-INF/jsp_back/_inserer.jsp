@@ -41,11 +41,13 @@
                 asrs[9] = lrs.getString(9).toString();
                 asrs[13] = lrs.getString(13).toString();
             }
-            String[] element = {"*"};
 
-            lrsCategories = crud.selectFrom("categories", element);
 
         }
+
+        String[] element = {"*"};
+        CRUD crudCategories = new CRUD("pariscope");
+        lrsCategories = crudCategories.selectFrom("categories", element);
 
     %>
     <body>
@@ -62,9 +64,9 @@
                 -->
                 <select name="categorie" id="categorie">
                     <%
-                if (request.getAttribute("id") != null) {
-                        while (lrsCategories.next()) {
-                            if (asrs[2].equals(lrsCategories.getString(1).toString()) && request.getAttribute("id") != null) {
+                        if (request.getAttribute("id") != null) {
+                            while (lrsCategories.next()) {
+                                if (asrs[2].equals(lrsCategories.getString(1).toString()) && request.getAttribute("id") != null) {
                     %>
                     <option value="<%=lrsCategories.getString(1).toString()%>" selected="selected"><%=lrsCategories.getString(2).toString()%></option>
                     <%
@@ -74,18 +76,24 @@
                     <%
                             } // --- Fin if else
                         } // --- Fin boucle while next
-                }
+                    } else {
+                        while (lrsCategories.next()) {
                     %>
+                    <option value="<%=lrsCategories.getString(1).toString()%>"><%=lrsCategories.getString(2).toString()%></option>
+                    <%
+                            } // --- Fin while next
+                        } // --- Fin else
+%>
                 </select>
 
                 <label for="titre">titre : </label>
-                <input type="text" name="titre" id="categorie" value="<%=asrs[3]%>">
+                <input type="text" name="titre" id="categorie" value="<%=asrs[3] != null ? asrs[3] : ""%>">
 
                 <label for="date">date : </label>
-                <input type="date" name="date" id="date" value="<%=asrs[4]%>">
+                <input type="date" name="date" id="date" value="<%=asrs[4] != null ? asrs[4] : ""%>">
 
                 <label for="heure">heure : </label>
-                <input type="time" name="heure" id="heure" value="<%=asrs[5]%>">
+                <input type="time" name="heure" id="heure" value="<%=asrs[5] != null ? asrs[5] : ""%>" required="required">
 
                 <!--
                 selecteur de lieu
@@ -93,11 +101,10 @@
                 <label for="lieu">lieu : </label>
                 <select name="lieu" id="lieu">
                     <%
-                        String[] element = {"*"};
-
+                        CRUD crudLieux = new CRUD("pariscope");
+                        lrsLieux = crudLieux.selectFrom("lieux", element);
+                        
                         if (request.getAttribute("id") != null) {
-                            CRUD crud = new CRUD("pariscope");
-                            lrsLieux = crud.selectFrom("lieux", element);
                             while (lrsLieux.next()) {
                                 if (asrs[13].equals(lrsLieux.getString(1).toString()) && request.getAttribute("id") != null) {
                     %>
@@ -107,21 +114,27 @@
                     %>
                     <option value="<%=lrsLieux.getString(1).toString()%>"><%=lrsLieux.getString(2).toString()%> - <%=lrsLieux.getString(3).toString()%></option>
                     <%
-                                } // --- Fin if else
-                            } // --- Fin boucle while next
-                        }
+                            } // --- Fin if else
+                        } // --- Fin boucle while next
+                    } else {
+                        while (lrsLieux.next()) {
+                    %>
+                    <option value="<%=lrsLieux.getString(1).toString()%>"><%=lrsLieux.getString(2).toString()%> - <%=lrsLieux.getString(3).toString()%></option>
+                    <%
+                            } // --- Fin while next
+                        } // --- Fin else
                     %>
                 </select>
 
 
                 <label for="prix">prix : </label>
-                <input type="text" name="prix" id="prix" value="<%=asrs[7]%>">
+                <input type="text" name="prix" id="prix" value="<%=asrs[7] != null ? asrs[7] : ""%>">
 
                 <label for="description">description : </label>
-                <textarea name="description" id="description" placeholder="<%=asrs[8]%>"></textarea>
+                <textarea name="description" id="description" placeholder="<%=asrs[8] != null ? asrs[8] : ""%>"></textarea>
 
                 <label for="lien">lien reservation : </label>
-                <input type="text" name="lien" id="lien" value="<%=asrs[9]%>">
+                <input type="text" name="lien" id="lien" value="<%=asrs[9] != null ? asrs[9] : ""%>">
                 <br>
                 <input type="submit" >
             </form>
