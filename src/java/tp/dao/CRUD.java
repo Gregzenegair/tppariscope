@@ -121,18 +121,29 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
 
+    public ResultSet selectAllJOIN(String sid) {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT * FROM  concerts co JOIN categories ca JOIN lieux li WHERE id_concert = '" + sid + "' AND co.id_categorie = ca.id_categorie AND co.id_lieu = li.id_lieu");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+
     public ResultSet selectRechercher(String recherche) {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
-            String requete="SELECT ca.id_categorie , ca.categorie , co.titre , co.date_concert , co.id_lieu , co.prix , ca.categorie , co.demande_sup"
+            String requete = "SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom"
                     + " FROM concerts co JOIN categories ca JOIN lieux li"
                     + " WHERE co.id_categorie = ca.id_categorie"
                     + " AND li.id_lieu = co.id_lieu"
-                    + " AND(co.titre like '%"+recherche+"%'"
-                    + " OR  li.adresse like'%"+recherche+"%'"
-                    + " OR ca.categorie like '%"+recherche+"%'"
-                    + " OR co.description like '%"+recherche+"%'"
+                    + " AND(co.titre like '%" + recherche + "%'"
+                    + " OR  li.adresse like'%" + recherche + "%'"
+                    + " OR ca.categorie like '%" + recherche + "%'"
+                    + " OR co.description like '%" + recherche + "%'"
                     + ")";
             lrsCurseur = this.instruction.executeQuery(requete);
         } catch (SQLException ex) {
