@@ -35,7 +35,7 @@ public class CRUD {
             // la classe du pilote avec Class.forName
             Class.forName("org.gjt.mm.mysql.Driver");
             //la connexion avec DriverManager.getConnection
-            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/", "user", "1234");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/", "root", "");
             /*
              * on ouvre le curseur et on le définie dans l'objet et on le fermera avec deco()
              * objet statement qui va permettre les instruction/commande
@@ -55,7 +55,7 @@ public class CRUD {
     public CRUD(String sNomBase) {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
-            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/" + sNomBase, "user", "1234");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/" + sNomBase, "root", "");
             this.instruction = this.connexion.createStatement();
             //pour le teste on affiche dans la console si l'opération à réussie
             System.out.println("Vous êtes connecté sur la base de donnée: " + sNomBase + ".");
@@ -82,7 +82,7 @@ public class CRUD {
     public ResultSet selectAllASC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now() ORDER BY " + sColonneTrie + " ASC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " ASC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,7 +92,7 @@ public class CRUD {
     public ResultSet selectAllDESC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now() ORDER BY " + sColonneTrie + " DESC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " DESC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,7 +103,7 @@ public class CRUD {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now()");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now()");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,18 +121,29 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
 
+    public ResultSet selectAllJOIN(String sid) {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT * FROM  concerts co JOIN categories ca JOIN lieux li WHERE id_concert = '" + sid + "' AND co.id_categorie = ca.id_categorie AND co.id_lieu = li.id_lieu");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+
     public ResultSet selectRechercher(String recherche) {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
-            String requete="SELECT ca.id_categorie , ca.categorie , co.titre , co.date_concert , co.id_lieu , co.prix , ca.categorie , co.demande_sup"
+            String requete = "SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom"
                     + " FROM concerts co JOIN categories ca JOIN lieux li"
                     + " WHERE co.id_categorie = ca.id_categorie"
                     + " AND li.id_lieu = co.id_lieu"
-                    + " AND(co.titre like '%"+recherche+"%'"
-                    + " OR  li.adresse like'%"+recherche+"%'"
-                    + " OR ca.categorie like '%"+recherche+"%'"
-                    + " OR co.description like '%"+recherche+"%'"
+                    + " AND(co.titre like '%" + recherche + "%'"
+                    + " OR  li.adresse like'%" + recherche + "%'"
+                    + " OR ca.categorie like '%" + recherche + "%'"
+                    + " OR co.description like '%" + recherche + "%'"
                     + ")";
             lrsCurseur = this.instruction.executeQuery(requete);
         } catch (SQLException ex) {

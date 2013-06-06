@@ -44,7 +44,7 @@
                 out.print("<a href='" + lsTri + "&tri=desc&colonne=date_concert'>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=desc&colonne=lieu'>a -> z</a>");
+                out.print("<a href='" + lsTri + "&tri=desc&colonne=li.nom'>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
                 out.print("<a href='" + lsTri + "&tri=desc&colonne=prix'>a -> z</a>");
@@ -63,7 +63,7 @@
                 out.print("<a href='" + lsTri + "&tri=asc&colonne=date_concert''>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
-                out.print("<a href='" + lsTri + "&tri=asc&colonne=lieu''>a -> z</a>");
+                out.print("<a href='" + lsTri + "&tri=asc&colonne=li.nom''>a -> z</a>");
                 out.print("</td>");
                 out.print("<td>");
                 out.print("<a href='" + lsTri + "&tri=asc&colonne=prix''>a -> z</a>");
@@ -93,7 +93,7 @@
                 out.print("</td>");
 
                 out.print("<td>");
-                out.print(lrs.getString(6));
+                out.print(lrs.getString(9));
                 out.print("</td>");
 
                 out.print("<td>");

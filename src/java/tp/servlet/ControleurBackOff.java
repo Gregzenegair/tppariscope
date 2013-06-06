@@ -67,11 +67,12 @@ public class ControleurBackOff extends HttpServlet {
         }
         if (request.getParameter("action").equals("_insererValidation")) {
             CRUD crud = new CRUD("pariscope");
-            crud.insertInto("concerts", CRUD.genInsert("7",
-                    "id_categorie", "titre", "date_concert", "id_lieu", "prix", "description", "lien_reservation",
+            crud.insertInto("concerts", CRUD.genInsert("8",
+                    "id_categorie", "titre", "date_concert", "heure_concert", "id_lieu", "prix", "description", "lien_reservation",
                     request.getParameter("categorie").toString(),
                     request.getParameter("titre").toString(),
                     request.getParameter("date").toString(),
+                    request.getParameter("heure").toString(),
                     request.getParameter("lieu").toString(),
                     request.getParameter("prix").toString(),
                     request.getParameter("description").toString(),
@@ -87,6 +88,7 @@ public class ControleurBackOff extends HttpServlet {
                     "id_categorie", request.getParameter("categorie").toString(),
                     "titre", request.getParameter("titre").toString(),
                     "date_concert", request.getParameter("date").toString(),
+                    "heure_concert", request.getParameter("heure").toString(),
                     "id_lieu", request.getParameter("lieu").toString(),
                     "prix", request.getParameter("prix").toString(),
                     "description", request.getParameter("description").toString(),
@@ -95,6 +97,7 @@ public class ControleurBackOff extends HttpServlet {
 
             lsNomPageInclusion = "_accueil.jsp";
             ResultSet lrs = crud.selectAllCC();
+            request.setAttribute("id_categorie", request.getParameter("categorie"));
             request.setAttribute("resultset", lrs);
         }
 

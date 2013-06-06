@@ -8,10 +8,10 @@
 
 root { 
     display: block;
-    
+
 }
 body{
-     text-align: center;
+    text-align: center;
 }
 header,
 footer{
@@ -47,8 +47,20 @@ article form label.input{
     display: inline-block;
 }
 
-a {
+a, a:focus, a:active {
     text-decoration: none;
     font-weight: bold;
+    color: blue;
+    transition: all 1s;
 }
 
+a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: orangered;
+    transition: all 1s;
+}
+
+#formulaire {
+    text-align: center;
+}
