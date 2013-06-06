@@ -132,6 +132,8 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
 
+    
+    
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
      */
