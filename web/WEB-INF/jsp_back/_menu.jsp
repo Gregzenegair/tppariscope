@@ -17,6 +17,10 @@
         <input type="hidden" name="action" value="_accueil">
         <input type="submit" value="accueil">
     </form>
+    <form action="/tppariscope/ControleurBackOff" method="post">
+        <input type="hidden" name="action" value="_ajoutElements">
+        <input type="submit" value="Ajout Elements">
+    </form>
 
     <%
         if (request.getSession().getAttribute("utilisateur").equals("admin")) {

@@ -137,7 +137,7 @@ public class CRUD {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
-            String requete = "SELECT ca.id_categorie , ca.categorie , co.titre , co.date_concert , co.id_lieu , co.prix , ca.categorie , co.demande_sup"
+            String requete = "SELECT ca.id_categorie , ca.categorie , co.titre , co.date_concert , co.id_lieu , co.prix , ca.categorie , co.demande_sup, li.nom"
                     + " FROM concerts co JOIN categories ca JOIN lieux li"
                     + " WHERE co.id_categorie = ca.id_categorie"
                     + " AND li.id_lieu = co.id_lieu"
