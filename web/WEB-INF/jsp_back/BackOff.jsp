@@ -10,8 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-            <link href="/tppariscope/css/backoff_style.css" rel="stylesheet">
+
+        <link href="/tppariscope/css/backoff_style.css" rel="stylesheet">
         <title>JSP Page</title>
     </head>
     <body>
@@ -23,11 +23,6 @@
                 String lsPageIncluse = "";
                 // Si des parametres sont a passer a la page incluse
                 String lsParametre = "";
-
-                if (request.getSession().getAttribute("utilisateur").equals("admin")) {
-            %>
-            <jsp:include page="_admin.jsp" flush="true"/>
-            <%                    }
 
                 if (request.getAttribute("inclusion") != null) {
                     lsPageIncluse = request.getAttribute("inclusion").toString();
