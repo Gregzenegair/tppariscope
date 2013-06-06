@@ -12,8 +12,8 @@
     <br> 
     <%
         String lsContexte = request.getContextPath();
-        String lsSupp = lsContexte + "/ControleurBackOff?action=_supprimerValider&id=";
-        String lsAnn = lsContexte + "/ControleurBackOff?action=_supprimerAnnuler&id=";
+        String lsSupp = lsContexte + "/ControleurAdmin";
+        String lsAnn = lsContexte + "/ControleurAdmin";
 
         if (request.getAttribute("resultset") != null) {
             ResultSet lrs = (ResultSet) request.getAttribute("resultset");
@@ -45,16 +45,31 @@
                 out.print("</td>");
 
                 out.print("<td>");
-                out.print("<a href='" + lsSupp);
-                out.print(lrs.getString(7));
-                out.print("'>Supprimer</a>");
+                out.print("<form action =" + lsSupp );
+                out.print(" method = 'post'>");
+                out.print("<input type = 'hidden' name = 'action' value = 'supprimerValider'>");
+                out.print("<input type = 'hidden' name = 'id' value = "+lrs.getString(7)+">");
+                out.print("<input type = 'submit' value = 'Supprimer'>");
+                out.print("</form>"); 
                 out.print("</td>");
                 
+                //out.print("<a href='" + lsSupp);
+                //out.print(lrs.getString(7));
+                //out.print("'>Supprimer</a>");
+                //out.print("</td>");
+                
                 out.print("<td>");
-                out.print("<a href='" + lsAnn);
-                out.print(lrs.getString(7));
-                out.print("'>Annuler la demande</a>");
-                out.print("</td>");
+                out.print("<form action =" + lsAnn );
+                out.print(" method = 'post'>");
+                out.print("<input type = 'hidden' name = 'action' value = 'supprimerAnnuler'>");
+                out.print("<input type = 'hidden' name = 'id' value = "+lrs.getString(7)+">");
+                out.print("<input type = 'submit' value = 'Annuler la demande'>");
+                out.print("</form>"); 
+                //out.print("<td>");
+                //out.print("<a href='" + lsAnn);
+                //out.print(lrs.getString(7));
+                //out.print("'>Annuler la demande</a>");
+                //out.print("</td>");
 
                 out.print("</tr>");
 

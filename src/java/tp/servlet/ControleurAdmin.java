@@ -64,12 +64,9 @@ public class ControleurAdmin extends HttpServlet {
                 ResultSet lrs = crud.selectAllCCAnnuler();
                 request.setAttribute("resultset", lrs);
             }
-//            if (request.getParameter("page").equals("_validerSupp")) {
-//                CRUD crud = new CRUD("pariscope");
-//                ResultSet lrs = crud.selectAllCCAnnuler();
-//                request.setAttribute("resultset", lrs);
-//            }
         }
+
+
 
         if (request.getParameter("action") != null) {
             String action = request.getParameter("action");
