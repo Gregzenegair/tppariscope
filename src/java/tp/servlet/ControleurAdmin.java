@@ -111,6 +111,7 @@ public class ControleurAdmin extends HttpServlet {
                     String loginUp = request.getParameter("login");
                     String mdpUp = request.getParameter("mdp");
                     String[] checkedUp = request.getParameterValues("admin");
+                    String id = request.getParameter("idmodif");
                     int adminUp;
                     if (checkedUp != null) {
                         adminUp = 1;
@@ -120,7 +121,7 @@ public class ControleurAdmin extends HttpServlet {
                     //on update dans la bdd 
                     connexion.updateWhere("redacteurs", 
                             CRUD.genCondition("login",loginUp,"mdp",mdpUp,"administrateur",Integer.toString(adminUp)), 
-                            CRUD.genCondition("login",loginUp));
+                            CRUD.genCondition("id_redacteur",id));
                     
                     request.setAttribute("updateOK", "Utilisateur modifié !");
                     ResultSet rsUtilisateur = connexion.selectAll("redacteurs");
