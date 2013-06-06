@@ -4,6 +4,7 @@
     Author     : stagiaire
 --%>
 
+<%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="tp.dao.CRUD"%>
@@ -18,8 +19,13 @@
         ResultSet lrs = null;
         ResultSet lrsCategories = null;
         ResultSet lrsLieux = null;
+        ResultSet lrsArtistes = null;
 
         String[] asrs = new String[20];
+
+        if (request.getAttribute("message") != null) {
+            out.print(request.getAttribute("message"));
+        }
 
         if (request.getAttribute("id") != null) {
             CRUD crud = new CRUD("pariscope");
@@ -31,15 +37,14 @@
             if (lrs != null) {
 
                 asrs[2] = lrs.getString(2).toString();
-                asrs[3] = lrs.getString(3).toString();
-                asrs[3] = lrs.getString(3).toString();
+                asrs[3] = lrs.getString(3);
                 asrs[4] = lrs.getString(4).toString();
                 asrs[5] = lrs.getString(5);
                 asrs[6] = lrs.getString(6).toString();
                 asrs[7] = lrs.getString(7).toString();
-                asrs[8] = lrs.getString(8).toString();
-                asrs[9] = lrs.getString(9).toString();
-                asrs[13] = lrs.getString(13).toString();
+                asrs[8] = lrs.getString(8);
+                asrs[9] = lrs.getString(9);
+                asrs[13] = lrs.getString(13);
             }
 
 
@@ -86,6 +91,25 @@
 %>
                 </select>
 
+                <label for="artistes">Artiste : </label>
+
+                <select name="artistes" id="artistes">
+
+                    <%
+                        CRUD crudArtistes = new CRUD("pariscope");
+                        lrsArtistes = crudArtistes.selectFrom("artistes", element);
+
+                        while (lrsArtistes.next()) {
+                    %>
+                    <option value="<%=lrsArtistes.getString(1).toString()%>"><%=lrsArtistes.getString(3).toString()%> <%=lrsArtistes.getString(2).toString()%></option>
+                    <%
+                        } // --- Fin while next
+
+                    %>
+                </select>
+
+
+
                 <label for="titre">titre : </label>
                 <input type="text" name="titre" id="categorie" value="<%=asrs[3] != null ? asrs[3] : ""%>">
 
@@ -103,7 +127,7 @@
                     <%
                         CRUD crudLieux = new CRUD("pariscope");
                         lrsLieux = crudLieux.selectFrom("lieux", element);
-                        
+
                         if (request.getAttribute("id") != null) {
                             while (lrsLieux.next()) {
                                 if (asrs[13].equals(lrsLieux.getString(1).toString()) && request.getAttribute("id") != null) {
@@ -123,7 +147,7 @@
                     <%
                             } // --- Fin while next
                         } // --- Fin else
-                    %>
+%>
                 </select>
 
 

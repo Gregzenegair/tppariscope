@@ -13,6 +13,7 @@
         String lsContexte = request.getContextPath();
         String lsTri = lsContexte + "/ControleurBackOff?action=_accueil";
         String lsURL = lsContexte + "/ControleurBackOff?action=_inserer&id=";
+        String lsURLLigartiste = lsContexte + "/ControleurBackOff?action=_ajouterLigartiste&id=";
         String lsSupp = lsContexte + "/ControleurBackOff?action=_supprimer&id=";
         String tri = "";
 
@@ -77,7 +78,10 @@
                 out.print("<td>");
                 out.print("<a href='" + lsURL);
                 out.print(lrs.getString(7));
-                out.print("'>Modifier</a>");
+                out.print("'>Modifier | </a>");
+                out.print("<a href='" + lsURLLigartiste);
+                out.print(lrs.getString(7));
+                out.print("'>Artistes</a>");
                 out.print("</td>");
 
                 out.print("<td>");
@@ -103,7 +107,7 @@
                 out.print("<td>");
                 out.print("<a href='" + lsSupp);
                 out.print(lrs.getString(7));
-                if (lrs.getInt(8)!=0) {
+                if (lrs.getInt(8) != 0) {
                     out.print("'>Suppression Demandée</a>");
                 } else {
                     out.print("'>Demande de Suppression</a>");
