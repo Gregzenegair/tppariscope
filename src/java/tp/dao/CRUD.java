@@ -99,7 +99,7 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
 
-      public ResultSet selectAllCC() {
+    public ResultSet selectAllCC() {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
@@ -109,19 +109,38 @@ public class CRUD {
         }
         return lrsCurseur;
     }/// SELECT *
-      
+
     public ResultSet selectAllCCAnnuler() {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
             lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and co.demande_sup<>0");
-       } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lrsCurseur;
     }/// SELECT *
-    
-   
+
+    public ResultSet selectRechercher(String recherche) {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            String requete="SELECT ca.id_categorie , ca.categorie , co.titre , co.date_concert , co.id_lieu , co.prix , ca.categorie , co.demande_sup"
+                    + " FROM concerts co JOIN categories ca JOIN lieux li"
+                    + " WHERE co.id_categorie = ca.id_categorie"
+                    + " AND li.id_lieu = co.id_lieu"
+                    + " AND(co.titre like '%"+recherche+"%'"
+                    + " OR  li.adresse like'%"+recherche+"%'"
+                    + " OR ca.categorie like '%"+recherche+"%'"
+                    + " OR co.description like '%"+recherche+"%'"
+                    + ")";
+            lrsCurseur = this.instruction.executeQuery(requete);
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
      */
@@ -173,6 +192,42 @@ public class CRUD {
                 break;
             }
             sbRequete.append(" AND ");
+        }// For
+        // test affichage requete
+        System.out.println(sbRequete.toString());
+        try {
+            lrsCurseur = this.instruction.executeQuery(sbRequete.toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT colonne FROM table WHERE condition AND condition.....
+
+    public ResultSet selectWhereOr(String sNomTable, String[] sNomCol, ArrayList<String[]> sCondition) {
+        ResultSet lrsCurseur = null;
+        StringBuilder sbRequete = new StringBuilder("SELECT ");
+        for (int i = 0; i < sNomCol.length; i++) {
+            sbRequete.append(sNomCol[i]);
+            if (i == sNomCol.length - 1) {
+                break;
+            }
+            sbRequete.append(" , ");
+        }// For
+        sbRequete.append(" FROM ");
+        sbRequete.append(sNomTable);
+        sbRequete.append(" WHERE ");
+        //insertion des conditions
+        for (int i = 0; i < sCondition.size(); i++) {
+            // on récupere le tableau clé valeur
+            String[] tsCondition = sCondition.get(i);
+            //on boucle le contenu du tableau et on l'append au stringbuilder
+            sbRequete.append(tsCondition[0]);
+            sbRequete.append(" = ");
+            sbRequete.append(tsCondition[1]);
+            if (i == sCondition.size() - 1) {
+                break;
+            }
+            sbRequete.append(" OR ");
         }// For
         // test affichage requete
         System.out.println(sbRequete.toString());
@@ -380,8 +435,10 @@ public class CRUD {
         if (sElements.length % 2 == 0) {
             for (int i = 0; i < sElements.length; i++) {
                 String[] condition = new String[2];
-                if (sElements[i]==""){sElements[i]=null;}
-                condition[0] = sElements[i]; 
+                if (sElements[i] == "") {
+                    sElements[i] = null;
+                }
+                condition[0] = sElements[i];
                 i++;
                 //formate la valeur en ajoutant ' ' autour de la valeur, sinon erreur requete
                 String valeur = "'" + sElements[i] + "'";
@@ -407,7 +464,9 @@ public class CRUD {
             for (int ligne = 0, element = 1; ligne < iNombreLigne; ligne++) {
                 String[] insert = new String[iNombreCol];
                 for (int col = 0; col < iNombreCol; col++) {
-                    if (sElements[element]==""){sElements[element]=null;}
+                    if (sElements[element] == "") {
+                        sElements[element] = null;
+                    }
                     insert[col] = sElements[element];
                     element++;
                 }//for col

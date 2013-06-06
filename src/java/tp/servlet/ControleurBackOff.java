@@ -110,6 +110,18 @@ public class ControleurBackOff extends HttpServlet {
             ResultSet lrs = crud.selectAllCC();
             request.setAttribute("resultset", lrs);
         }
+        
+        if (request.getParameter("action").equals("_rechercher")) {
+            CRUD crud = new CRUD("pariscope");
+                lsNomPageInclusion = "_accueil.jsp";
+                String recherche= request.getParameter("recherche")!=null? request.getParameter("recherche"):null;
+                String[] colRecherche ={"ca.id_categorie","ca.categorie", "co.titre","co.date_concert","co.id_lieu", "co.prix","co.id_concert","co.demande_sup"};
+                ResultSet lrs = crud.selectRechercher(recherche);
+                request.setAttribute("resultset", lrs);
+                
+            //SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup 
+                //FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now()
+        }
 
         request.setAttribute("inclusion", lsNomPageInclusion);
         getServletContext().getRequestDispatcher("/WEB-INF/jsp_back/BackOff.jsp").forward(request, response);// là il renverra : http://WebAppJSP/jsp/_modeleBIS.jsp?contenu=Fragment(nom de l'action).jsp
