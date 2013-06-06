@@ -36,11 +36,11 @@
             lrs.next();
             if (lrs != null) {
 
-                asrs[2] = lrs.getString(2).toString();
+                asrs[2] = lrs.getString(2);
                 asrs[3] = lrs.getString(3);
                 asrs[4] = lrs.getString(4).toString();
                 asrs[5] = lrs.getString(5);
-                asrs[6] = lrs.getString(6).toString();
+                asrs[6] = lrs.getString(6);
                 asrs[7] = lrs.getString(7).toString();
                 asrs[8] = lrs.getString(8);
                 asrs[9] = lrs.getString(9);
@@ -88,27 +88,8 @@
                     <%
                             } // --- Fin while next
                         } // --- Fin else
-%>
-                </select>
-
-                <label for="artistes">Artiste : </label>
-
-                <select name="artistes" id="artistes">
-
-                    <%
-                        CRUD crudArtistes = new CRUD("pariscope");
-                        lrsArtistes = crudArtistes.selectFrom("artistes", element);
-
-                        while (lrsArtistes.next()) {
-                    %>
-                    <option value="<%=lrsArtistes.getString(1).toString()%>"><%=lrsArtistes.getString(3).toString()%> <%=lrsArtistes.getString(2).toString()%></option>
-                    <%
-                        } // --- Fin while next
-
                     %>
                 </select>
-
-
 
                 <label for="titre">titre : </label>
                 <input type="text" name="titre" id="categorie" value="<%=asrs[3] != null ? asrs[3] : ""%>">
@@ -147,7 +128,7 @@
                     <%
                             } // --- Fin while next
                         } // --- Fin else
-%>
+                    %>
                 </select>
 
 
@@ -155,7 +136,7 @@
                 <input type="text" name="prix" id="prix" value="<%=asrs[7] != null ? asrs[7] : ""%>">
 
                 <label for="description">description : </label>
-                <textarea name="description" id="description" placeholder="<%=asrs[8] != null ? asrs[8] : ""%>"></textarea>
+                <textarea name="description" id="description" placeholder="Renseignez ici la description du concert"><%=asrs[8] != null ? asrs[8] : ""%></textarea>
 
                 <label for="lien">lien reservation : </label>
                 <input type="text" name="lien" id="lien" value="<%=asrs[9] != null ? asrs[9] : ""%>">

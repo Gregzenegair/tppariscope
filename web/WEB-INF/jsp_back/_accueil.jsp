@@ -17,6 +17,10 @@
         String lsSupp = lsContexte + "/ControleurBackOff?action=_supprimer&id=";
         String tri = "";
 
+        if (request.getAttribute("message") != null) {
+            out.print(request.getAttribute("message"));
+        }
+
         if (request.getAttribute("tri") != null) {
             tri = request.getAttribute("tri").toString();
         }

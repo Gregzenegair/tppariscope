@@ -57,10 +57,14 @@ a, a:focus, a:active {
 a:hover {
     text-decoration: none;
     font-weight: bold;
-    color: orangered;
+    color: green;
     transition: all 1s;
 }
 
 #formulaire {
     text-align: center;
+}
+
+.message {
+    color: orangered;
 }
