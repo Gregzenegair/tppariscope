@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Utilisation du controleur -->
         <%
-            String lsContexte = request.getContextPath();
+                    String lsContexte = request.getContextPath();
         %>
     </head>
     <body>
