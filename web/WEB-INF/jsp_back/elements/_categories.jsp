@@ -7,17 +7,44 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    String actionTitre = "Ajouter";
     if (request.getAttribute("suppOK") != null) {
+        actionTitre = "Supprimer";
         out.print(request.getAttribute("suppOK").toString());
     }
+
+    String categorie = "";
+    String sValue = "insertElement";
+    String sBoutonValue = "Insérer Catégorie";
+    int idCategorie = 0;
+    if (request.getAttribute("rsElement") != null) {
+        actionTitre = "Modifier";
+        ResultSet rsCategorieModif = (ResultSet) request.getAttribute("rsElement");
+        rsCategorieModif.next();
+        categorie = rsCategorieModif.getString(2);
+        sValue = "updateElement";
+        sBoutonValue = "Modifier Categorie";
+        idCategorie = rsCategorieModif.getInt(1);
+    }
 %>
-<article>
-    <h1>Ajouter une Catégorie</h1>
+<h1><%=actionTitre%> une Catégorie</h1>
+<article id="formulaire">
     <form action="/tppariscope/ControleurBackOffElements" method="post">
-        <input type="hidden" name="action" value="insertElement"/>
-        Catégorie : <input type="text" name="categorie" /><br/>
-        <input type="submit" value="Insérer Catégorie"/>
+        <input type="hidden" name="fragment" value="_categories"/>
+        <input type="hidden" name="action" value="<%=sValue%>"/>
+        <input type="hidden" name="id" value="<%=idCategorie%>"/>
+        Catégorie : <input type="text" name="categorie" value="<%=categorie%>"/><br/>
+        <input type="submit" value="<%=sBoutonValue%>"/>
     </form>
+    <%
+        if (request.getAttribute("rsElement") != null) {
+    %>
+    <form action="/tppariscope/ControleurBackOffElements" method="post">
+        <input type="hidden" name="fragment" value="_categories"/>
+        <input type="submit" value="Annuler"/>
+    </form>
+    <%        }
+    %>
 </article>
 
 <table>
@@ -37,7 +64,9 @@
                 out.print("</td>");
             }
             out.print("<td><form action=\"/tppariscope/ControleurBackOffElements?id=" + rsCategorie.getInt(1) + "\" method=\"post\">"
-                    + "<input type=\"hidden\" name=\"page\" value=\"modifElement\"/>"
+                    + "<input type=\"hidden\" name=\"fragment\" value=\"" + fragment + "\"/>"
+                    + "<input type=\"hidden\" name=\"table\" value=\"categories\"/>"
+                    + "<input type=\"hidden\" name=\"action\" value=\"modifElement\"/>"
                     + "<input type=\"submit\" value=\"Modifier\"/></form></td>");
             out.print("<td><form action=\"/tppariscope/ControleurBackOffElements?id=" + rsCategorie.getInt(1) + "\" method=\"post\">"
                     + "<input type=\"hidden\" name=\"action\" value=\"suppElement\"/>"

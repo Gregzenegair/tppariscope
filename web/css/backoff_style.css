@@ -5,7 +5,9 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
+html {
+    font-family: "Arial";
+}
 root { 
     display: block;
 

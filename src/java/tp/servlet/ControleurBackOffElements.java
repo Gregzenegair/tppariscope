@@ -32,8 +32,9 @@ public class ControleurBackOffElements extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CRUD crudElement = new CRUD("pariscope");
-        // les actions à gérer
+
         if (request.getParameter("fragment") != null) {
+            // les actions à gérer
             if (request.getParameter("action") != null) {
                 String sAction = request.getParameter("action");
                 switch (sAction) {
@@ -42,13 +43,13 @@ public class ControleurBackOffElements extends HttpServlet {
                         String valideSuppression = "Etes vous sûr de vouloir supprimer l'élément <em>" + request.getParameter("id") + "</em> de la liste ? "
                                 + "<form action=\"/tppariscope/ControleurBackOffElements\" method=\"post\">"
                                 + "<input type=\"hidden\" name=\"action\" value=\"validSuppElement\" />"
-                                 + "<input type=\"hidden\" name=\"id\" value=\"" + request.getParameter("id") + "\"/>"
+                                + "<input type=\"hidden\" name=\"id\" value=\"" + request.getParameter("id") + "\"/>"
                                 + "<input type=\"hidden\" name=\"table\" value=\"" + request.getParameter("table") + "\"/>"
-                                + "<input type=\"hidden\" name=\"fragment\" value=\""+request.getParameter("fragment")+"\"/>"
+                                + "<input type=\"hidden\" name=\"fragment\" value=\"" + request.getParameter("fragment") + "\"/>"
                                 + "<input type=\"submit\" value=\"Valider Suppression\"/></form>"
                                 //annuler
-                                + "<form action=\"/tppariscope/ControleurAdmin\" method=\"post\">"
-                                + "<input type=\"hidden\" name=\"page\" value=\"_modifRedac\" />"
+                                + "<form action=\"/tppariscope/ControleurBackOffElements\" method=\"post\">"
+                                + "<input type=\"hidden\" name=\"fragment\" value=\""+request.getParameter("fragment")+"\" />"
                                 + "<input type=\"submit\" value=\"Annuler\"/>"
                                 + "</form>";
                         request.setAttribute("suppOK", valideSuppression);
@@ -59,9 +60,80 @@ public class ControleurBackOffElements extends HttpServlet {
                         String colonne = table.substring(0, table.length() - 1);
                         crudElement.deleteWhere(table, CRUD.genCondition("id_" + colonne, id));
                         break;
-                        
+
                     case "modifElement":
-                        
+                        String idElement = request.getParameter("id");
+                        CRUD modifElement = new CRUD("pariscope");
+                        String tableElement = request.getParameter("table");
+                        String colonneModif = tableElement.substring(0, tableElement.length() - 1);
+                        String[] sCol = {"*"};
+                        ResultSet rsModifElement = modifElement.selectWhere(tableElement, sCol, CRUD.genCondition("id_" + colonneModif, idElement));
+                        request.setAttribute("rsElement", rsModifElement);
+                        break;
+                    case "insertElement":
+
+                        CRUD insertElement = new CRUD("pariscope");
+                        //on vérifie de quelle page proviens l'appel
+                        if (request.getParameter("fragment") != null) {
+                            String sPage = request.getParameter("fragment");
+                            switch (sPage) {
+                                case "_lieux":
+                                    String nom = request.getParameter("nomLieu");
+                                    String adresse = request.getParameter("adresse");
+                                    //Insert dans la base
+                                    insertElement.insertInto("lieux", CRUD.genInsert("2", "adresse", "nom", adresse, nom));
+                                    break;
+                                case "_artistes":
+                                    String nomArtiste = request.getParameter("nomArtiste");
+                                    String prenom = request.getParameter("prenom");
+                                    String instrument = request.getParameter("instrument");
+                                    //Insert dans la base
+                                    insertElement.insertInto("artistes", CRUD.genInsert("3", "nom", "prenom", "instrument", nomArtiste, prenom, instrument));
+                                    break;
+                                case "_categories":
+                                    String categorie = request.getParameter("categorie");
+                                    //Insert dans la base
+                                    insertElement.insertInto("categories", CRUD.genInsert("1", "categorie", categorie));
+                                    break;
+                            }
+                        }
+                        break;
+                    case "updateElement":
+
+                        CRUD updateElement = new CRUD("pariscope");
+                        //on vérifie de quelle page proviens l'appel
+                        if (request.getParameter("fragment") != null) {
+                            String sPage = request.getParameter("fragment");
+                            switch (sPage) {
+                                case "_lieux":
+                                    String idLieu = request.getParameter("id");
+                                    String nom = request.getParameter("nomLieu");
+                                    String adresse = request.getParameter("adresse");
+                                    //Update dans la base
+                                    updateElement.updateWhere("lieux",
+                                            CRUD.genCondition("adresse",adresse,"nom",nom),
+                                            CRUD.genCondition("id_lieu",idLieu));
+                                    break;
+                                case "_artistes":
+                                    String idArtiste = request.getParameter("id");
+                                    String nomArtiste = request.getParameter("nomArtiste");
+                                    String prenom = request.getParameter("prenom");
+                                    String instrument = request.getParameter("instrument");
+                                    //Update dans la base
+                                    updateElement.updateWhere("artistes",
+                                            CRUD.genCondition("nom",nomArtiste,"prenom",prenom,"instrument",instrument),
+                                            CRUD.genCondition("id_artiste",idArtiste));
+                                    break;
+                                case "_categories":
+                                    String idCategorie = request.getParameter("id");
+                                    String categorie = request.getParameter("categorie");
+                                    //Update dans la base
+                                    updateElement.updateWhere("categories",
+                                            CRUD.genCondition("categorie",categorie),
+                                            CRUD.genCondition("id_categorie",idCategorie));
+                                    break;
+                            }
+                        }
                         break;
                 }
             }
