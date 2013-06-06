@@ -93,7 +93,7 @@
                 out.print("</td>");
 
                 out.print("<td>");
-                out.print(lrs.getString(5));
+                out.print(lrs.getString(6));
                 out.print("</td>");
 
                 out.print("<td>");

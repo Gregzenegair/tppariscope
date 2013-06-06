@@ -5,13 +5,65 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
+*{
+    margin:0;
+    padding: 0;
+}
 root { 
     display: block;
 }
+body{
+    font-family:"Arial ", Sans-serif;
+}
+header,
+#slider{
+    text-align: center;
+}
+
+header,
+#centre,
+#slider{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%
+}
+#slider{
+    margin-top:1rem;
+}
+#centre article{
+    box-sizing: border-box;
+    display: inline-block;
+    width: 24%;
+    padding: 0;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+#centre article div{
+    text-align: justify;
+    padding: 1rem;
+}
+
+#centre article h1{
+    font-size: xx-large;
+    text-align: center;
+}
+#centre article div h3{
+    font-size: x-large;
+}
+#centre article div p{
+    font-size: large;
+    display: inline;
+    text-align: justify;
+        
+}
+
+
 
 a {
     text-decoration: none;
     font-weight: bold;
 }
-
+#slider img{
+    width: 5rem;
+    height: 5rem;
+}

@@ -115,7 +115,6 @@ public class ControleurBackOff extends HttpServlet {
             CRUD crud = new CRUD("pariscope");
                 lsNomPageInclusion = "_accueil.jsp";
                 String recherche= request.getParameter("recherche")!=null? request.getParameter("recherche"):null;
-                String[] colRecherche ={"ca.id_categorie","ca.categorie", "co.titre","co.date_concert","co.id_lieu", "co.prix","co.id_concert","co.demande_sup"};
                 ResultSet lrs = crud.selectRechercher(recherche);
                 request.setAttribute("resultset", lrs);
                 
