@@ -6,11 +6,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id='centre'>
+    
 <article>
+    <a href="/tppariscope/ControleurConcert?action='voirConcert'&id='1'">
         <h1>concerts clasique</h1>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
         <%@include  file="_concert.jsp" %>
+    </a>
 </article>
 <article>
         <h1>concerts hors paris</h1>

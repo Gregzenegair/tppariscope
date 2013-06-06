@@ -34,7 +34,8 @@ public class ControleurConcert extends HttpServlet {
         CRUD database = new CRUD("pariscope");
         String action=request.getParameter("action");
         if (action!=null){
-            redirection = "/tppariscope/jsp/Pariscope.jsp";
+            request.setAttribute("inclusion","_"+action+".jsp");
+            redirection = "/jsp/Pariscope.jsp";
         }
       
             getServletContext().getRequestDispatcher(redirection).forward(request, response);
