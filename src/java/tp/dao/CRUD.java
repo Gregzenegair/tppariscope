@@ -82,7 +82,7 @@ public class CRUD {
     public ResultSet selectAllASC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.lieu, co.prix, co.id_concert FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now() ORDER BY " + sColonneTrie + " ASC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " ASC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,25 +92,46 @@ public class CRUD {
     public ResultSet selectAllDESC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.lieu, co.prix, co.id_concert FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now() ORDER BY " + sColonneTrie + " DESC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " DESC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lrsCurseur;
     }/// SELECT *
 
-      public ResultSet selectAllCC() {
+    public ResultSet selectAllCC() {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.lieu, co.prix, co.id_concert FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now()");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now()");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lrsCurseur;
     }/// SELECT *
-    
-    
+
+    public ResultSet selectAllCCAnnuler() {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and co.demande_sup<>0");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+
+    public ResultSet selectAllJOIN(String sid) {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT * FROM  concerts co JOIN categories ca JOIN lieux li WHERE id_concert = '" + sid + "' AND co.id_categorie = ca.id_categorie AND co.id_lieu = li.id_lieu");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
      */
@@ -369,8 +390,10 @@ public class CRUD {
         if (sElements.length % 2 == 0) {
             for (int i = 0; i < sElements.length; i++) {
                 String[] condition = new String[2];
-                if (sElements[i]==""){sElements[i]=null;}
-                condition[0] = sElements[i]; 
+                if (sElements[i] == "") {
+                    sElements[i] = null;
+                }
+                condition[0] = sElements[i];
                 i++;
                 //formate la valeur en ajoutant ' ' autour de la valeur, sinon erreur requete
                 String valeur = "'" + sElements[i] + "'";
@@ -396,7 +419,9 @@ public class CRUD {
             for (int ligne = 0, element = 1; ligne < iNombreLigne; ligne++) {
                 String[] insert = new String[iNombreCol];
                 for (int col = 0; col < iNombreCol; col++) {
-                    if (sElements[element]==""){sElements[element]=null;}
+                    if (sElements[element] == "") {
+                        sElements[element] = null;
+                    }
                     insert[col] = sElements[element];
                     element++;
                 }//for col
