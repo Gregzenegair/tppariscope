@@ -17,7 +17,6 @@
     </head>
     <body>
         <%@include  file="_header.jsp" %>
-        <%@include  file="_slider.jsp" %>
         <article>
 
             <%
