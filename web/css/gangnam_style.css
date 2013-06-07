@@ -39,6 +39,7 @@ header,
     padding: 0;
     padding-bottom: 1rem;
     padding-top: 1rem;
+     vertical-align: top;
 }
 #centre article div{
     text-align: justify;
@@ -79,4 +80,10 @@ a {
 #slider img{
     width: 5rem;
     height: 5rem;
+}
+footer{
+    text-align: center
+}
+footer a img{
+    width: 150px;
 }

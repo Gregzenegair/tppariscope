@@ -6,5 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer>
-    Valentin Jouanne | Christophe Pavia | Grégory Hrycaj | All right reserved NextFormation 2013
+    <p>Valentin Jouanne | Christophe Pavia | Grégory Hrycaj | All right reserved NextFormation 2013<p>
+    <p><a href="/tppariscope/jsp/Pariscope.jsp"><img src="/tppariscope/img/pariscope_header.png"/></a></p>
 </footer>

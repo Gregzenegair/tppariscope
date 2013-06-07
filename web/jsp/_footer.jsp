@@ -6,5 +6,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer>
-    FOOTER
+    <a href="/tppariscope/index.jsp"><img src="/tppariscope/img/pariscope_header_back.png"/></a>
 </footer>
