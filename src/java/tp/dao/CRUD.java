@@ -166,6 +166,33 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
 
+         public ResultSet selectConcertAcceuil(String[] id_categorie) {
+        ResultSet lrsCurseur = null;
+        StringBuilder requete=new StringBuilder();
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            for (int i=0;i<id_categorie.length;i++){
+           requete.append(" (select co.id_concert, ca.categorie, co.titre, group_concat(' ',ar.nom, ' ',ar.prenom) as concatenation, co.date_concert, co.heure_concert, li.nom, li.adresse, co.prix ");
+           requete.append(" from categories ca ");
+           requete.append(" join concerts co ");
+           requete.append(" on ca.id_categorie = co.id_categorie ");
+           requete.append(" join lieux li ");
+           requete.append(" on li.id_lieu = co.id_lieu ");
+           requete.append(" join ligartistes ligar ");
+           requete.append(" on ligar.id_concert = co.id_concert ");
+           requete.append(" join artistes ar ");
+           requete.append(" on ligar.id_artiste = ar.id_artiste ");
+           requete.append(" where co.id_categorie = "+id_categorie[i]);
+           requete.append(" Group By co.id_concert ");
+           requete.append(" limit 3) ");
+           requete.append(" Union ");}
+            String rqt=requete.toString().substring(0, requete.length()-6);
+            lrsCurseur = this.instruction.executeQuery(rqt);
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
         
     public ResultSet selectRechercher(String recherche) {
         ResultSet lrsCurseur = null;

@@ -9,6 +9,10 @@
         <servlet-class>tp.servlet.ControleurAdmin</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ControleurConcert</servlet-name>
+        <servlet-class>tp.servlet.ControleurConcert</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ControleurBackOffElements</servlet-name>
         <servlet-class>tp.servlet.ControleurBackOffElements</servlet-class>
     </servlet>
