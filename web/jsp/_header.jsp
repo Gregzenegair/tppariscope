@@ -6,7 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header>
     <img src="/tppariscope/img/pariscope_header.png" alt="PARISCOPE">
-        <form action="/tppariscope/ControleurBackOff" method="post">
+        <form action="/tppariscope/ControleurConcert" method="post">
         <input type="hidden" name="action" value="_rechercher">
         <input type="text" name="recherche" id="rechercher">
         <input type="submit" value="rechercher" >
