@@ -40,7 +40,7 @@ public class ControleurBackOffElements extends HttpServlet {
                 switch (sAction) {
                     case "suppElement":
                         // on prépare un attribut qui affichera un nouveau bouton pour confirmer la suppression
-                        String valideSuppression = "Etes vous sûr de vouloir supprimer l'élément <em>" + request.getParameter("id") + "</em> de la liste ? "
+                        String valideSuppression = "Etes vous sûr de vouloir supprimer l'élément <em>" + request.getParameter("nom") + "</em> de la liste ? "
                                 + "<form action=\"/tppariscope/ControleurBackOffElements\" method=\"post\">"
                                 + "<input type=\"hidden\" name=\"action\" value=\"validSuppElement\" />"
                                 + "<input type=\"hidden\" name=\"id\" value=\"" + request.getParameter("id") + "\"/>"

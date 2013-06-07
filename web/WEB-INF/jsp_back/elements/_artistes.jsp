@@ -78,6 +78,7 @@
                     + "<input type=\"submit\" value=\"Modifier\"/></form></td>");
             out.print("<td><form action=\"/tppariscope/ControleurBackOffElements?id=" + rsArtiste.getInt(1) + "\" method=\"post\">"
                     + "<input type=\"hidden\" name=\"action\" value=\"suppElement\"/>"
+                    + "<input type=\"hidden\" name=\"nom\" value=\""+rsArtiste.getString(3)+" "+rsArtiste.getString(2)+"\"/>"
                     + "<input type=\"hidden\" name=\"table\" value=\"artistes\"/>"
                     + "<input type=\"hidden\" name=\"fragment\" value=\"" + fragment + "\"/>"
                     + "<input type=\"submit\" value=\"Supprimer\"/></form></td>");

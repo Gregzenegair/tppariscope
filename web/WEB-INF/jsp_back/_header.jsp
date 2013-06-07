@@ -5,7 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header>
-    <h1>HEADER BACK OFF</h1>
+    <img src="img/pariscope_header_back.png" id="header_back"/>
         <form action="/tppariscope/ControleurBackOff" method="post">
         <input type="hidden" name="action" value="_rechercher">
         <input type="text" name="recherche" id="rechercher">
