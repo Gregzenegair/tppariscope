@@ -7,6 +7,7 @@ package tp.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,6 +63,56 @@ public class ControleurBackOff extends HttpServlet {
             }
         }
 
+
+
+        if (request.getParameter("action").equals("_ajouterLigartiste")) {
+            CRUD crud = new CRUD("pariscope");
+
+            ResultSet lrs = crud.selectAll("artistes");
+            request.setAttribute("resultset", lrs);
+            request.setAttribute("id", request.getParameter("id"));
+        }
+
+
+
+
+        if (request.getParameter("action").equals("_nouveauLigartistes")) {
+
+            CRUD crud = new CRUD("pariscope");
+            ResultSet lrsArtistes = crud.selectAll("artistes");
+
+            try {
+                lrsArtistes.last();
+
+                int i = 0;
+                String[] asCheckArtistes = asCheckArtistes = request.getParameterValues("checkartistes");
+
+                crud.deleteWhere("ligartistes", CRUD.genCondition("id_concert", request.getParameter("id")));
+
+                if (asCheckArtistes != null) {
+                while (i < asCheckArtistes.length) {
+                    if (asCheckArtistes[i] != null) { /// A debugger !!!!!
+
+                        crud.insertInto("ligartistes",
+                                CRUD.genInsert("2", "id_concert", "id_artiste", request.getParameter("id"), asCheckArtistes[i]));
+                    }
+                    i++;
+                }
+                }
+            } catch (SQLException e) {
+            }
+
+            ResultSet lrs = crud.selectAllCC();
+            request.setAttribute("resultset", lrs);
+            request.setAttribute("id", request.getParameter("id"));
+            request.setAttribute("message", "<span class='message'>Artiste(s) défini(s)</span>");
+            lsNomPageInclusion = "_accueil.jsp";
+        }
+
+
+
+
+
         if (request.getParameter("action").equals("_inserer") && request.getParameter("id") != null) {
             request.setAttribute("id", request.getParameter("id"));
         }
@@ -78,7 +129,7 @@ public class ControleurBackOff extends HttpServlet {
                     request.getParameter("description").toString(),
                     request.getParameter("lien").toString()));
             lsNomPageInclusion = "_inserer.jsp";
-            request.setAttribute("message", "le concert a été ajouté");
+            request.setAttribute("message", "<span class='message'>Le concert \"" + request.getParameter("titre").toString() + "\" a bien été ajouté</span>");
         }
 
         if (request.getParameter("action").equals("_modifierValidation")) {
@@ -97,6 +148,7 @@ public class ControleurBackOff extends HttpServlet {
 
             lsNomPageInclusion = "_accueil.jsp";
             ResultSet lrs = crud.selectAllCC();
+            request.setAttribute("message", "<span class='message'>Le concert \"" + request.getParameter("titre").toString() + "\" a bien été modifié</span>");
             request.setAttribute("id_categorie", request.getParameter("categorie"));
             request.setAttribute("resultset", lrs);
         }
@@ -113,16 +165,16 @@ public class ControleurBackOff extends HttpServlet {
             ResultSet lrs = crud.selectAllCC();
             request.setAttribute("resultset", lrs);
         }
-        
+
         if (request.getParameter("action").equals("_rechercher")) {
             CRUD crud = new CRUD("pariscope");
-                lsNomPageInclusion = "_accueil.jsp";
-                String recherche= request.getParameter("recherche")!=null? request.getParameter("recherche"):null;
-                ResultSet lrs = crud.selectRechercher(recherche);
-                request.setAttribute("resultset", lrs);
-                
+            lsNomPageInclusion = "_accueil.jsp";
+            String recherche = request.getParameter("recherche") != null ? request.getParameter("recherche") : null;
+            ResultSet lrs = crud.selectRechercher(recherche);
+            request.setAttribute("resultset", lrs);
+
             //SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup 
-                //FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now()
+            //FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now()
         }
 
         request.setAttribute("inclusion", lsNomPageInclusion);

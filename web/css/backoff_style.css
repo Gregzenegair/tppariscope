@@ -24,6 +24,12 @@ footer *{
 header h1{
     margin-right: 3rem; 
 }
+
+footer {
+     font-variant: small-caps;
+     padding: 10px;
+}
+
 nav{
     background-color: gray;
 }
@@ -63,4 +69,13 @@ a:hover {
 
 #formulaire {
     text-align: center;
+}
+
+.message {
+    color: orangered;
+}
+
+input[type=text] {
+    width: 14em;
+    text-align: left;
 }

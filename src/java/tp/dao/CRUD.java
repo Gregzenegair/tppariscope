@@ -78,6 +78,29 @@ public class CRUD {
         }
         return lrsCurseur;
     }/// SELECT *
+    
+        public String[] selectId_categorie() {
+        ResultSet lrsCurseur = null;
+        String[] asResultat = null;
+        
+        try {
+            lrsCurseur = this.instruction.executeQuery("SELECT id_categorie FROM categories");
+            lrsCurseur.last();
+            int rowCount = lrsCurseur.getRow();
+            asResultat = new String[rowCount];
+            
+            lrsCurseur.beforeFirst();
+            int i = 0;
+            while (lrsCurseur.next()) {
+                asResultat[i] = lrsCurseur.getString(1);
+                i++;
+            }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return asResultat;
+    }/// selectId_categorie
 
     public ResultSet selectAllASC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
@@ -126,6 +149,17 @@ public class CRUD {
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
             lrsCurseur = this.instruction.executeQuery("SELECT * FROM  concerts co JOIN categories ca JOIN lieux li WHERE id_concert = '" + sid + "' AND co.id_categorie = ca.id_categorie AND co.id_lieu = li.id_lieu");
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrsCurseur;
+    }/// SELECT *
+    
+        public ResultSet selectAllLigArtistes(String sid) {
+        ResultSet lrsCurseur = null;
+        try {
+            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            lrsCurseur = this.instruction.executeQuery("SELECT lig.id_ligconcert, lig.id_concert, lig.id_artiste FROM ligartistes lig  WHERE lig.id_concert = '" + sid + "'");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }

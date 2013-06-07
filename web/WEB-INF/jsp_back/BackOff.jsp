@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link href="/tppariscope/css/backoff_style.css" rel="stylesheet">
-        <title>JSP Page</title>
+        <title>Back Off Pariscope</title>
     </head>
     <body>
         <%@include  file="_header.jsp" %>
