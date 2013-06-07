@@ -5,7 +5,9 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
+html {
+    font-family: "Arial";
+}
 root { 
     display: block;
 
@@ -71,6 +73,7 @@ a:hover {
     text-align: center;
 }
 
+
 .message {
     color: orangered;
 }
@@ -78,4 +81,9 @@ a:hover {
 input[type=text] {
     width: 14em;
     text-align: left;
+}
+
+#header_back{
+    width: 400px
+
 }

@@ -165,14 +165,14 @@ public class ControleurBackOff extends HttpServlet {
             ResultSet lrs = crud.selectAllCC();
             request.setAttribute("resultset", lrs);
         }
-
-        if (request.getParameter("action").equals("_rechercher")) {
+        
+        if (request.getParameter("action").equals("_rechercher") && request.getParameter("recherche") != null) {
             CRUD crud = new CRUD("pariscope");
-            lsNomPageInclusion = "_accueil.jsp";
-            String recherche = request.getParameter("recherche") != null ? request.getParameter("recherche") : null;
-            ResultSet lrs = crud.selectRechercher(recherche);
-            request.setAttribute("resultset", lrs);
-
+                lsNomPageInclusion = "_accueil.jsp";
+                String recherche= request.getParameter("recherche");
+                ResultSet lrs = crud.selectRechercher(recherche);
+                request.setAttribute("resultset", lrs);
+                
             //SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup 
             //FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and date_concert > now()
         }

@@ -166,10 +166,12 @@ public class CRUD {
         return lrsCurseur;
     }/// SELECT *
 
+        
     public ResultSet selectRechercher(String recherche) {
         ResultSet lrsCurseur = null;
         try {
             // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+
             String requete = "SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom"
                     + " FROM concerts co JOIN categories ca JOIN lieux li"
                     + " WHERE co.id_categorie = ca.id_categorie"
@@ -180,6 +182,7 @@ public class CRUD {
                     + " OR co.description like '%" + recherche + "%'"
                     + ")";
             lrsCurseur = this.instruction.executeQuery(requete);
+
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -189,6 +192,7 @@ public class CRUD {
     /*
      * SELECT colonne FROM table récupère les colonnes séléctionné
      */
+
     public ResultSet selectFrom(String sNomTable, String[] sNomCol) {
         ResultSet lrsCurseur = null;
         StringBuilder sbRequete = new StringBuilder("SELECT ");

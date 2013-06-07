@@ -8,6 +8,10 @@
         <servlet-name>ControleurAdmin</servlet-name>
         <servlet-class>tp.servlet.ControleurAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControleurBackOffElements</servlet-name>
+        <servlet-class>tp.servlet.ControleurBackOffElements</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControleurBackOff</servlet-name>
         <url-pattern>/ControleurBackOff</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ControleurAdmin</servlet-name>
         <url-pattern>/ControleurAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControleurBackOffElements</servlet-name>
+        <url-pattern>/ControleurBackOffElements</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
