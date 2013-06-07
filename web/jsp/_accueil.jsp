@@ -14,10 +14,10 @@
         String categorie = "";
         int nbCategorie = 0;
         while (rsaccueil.next()) {
-            String id_concert=rsaccueil.getString(1);
-             //si nouvelle categorie
+            String id_concert = rsaccueil.getString(1);
+            //si nouvelle categorie
             if (!categorie.equals(rsaccueil.getString(2))) {
-               //si elle n'est pas la 1ere
+                //si elle n'est pas la 1ere
                 if (nbCategorie != 0) {
                     out.print("</article>");
                 }%>
@@ -30,10 +30,16 @@
             }//dans tout les cas%>
         <div class="concert"> 
             <a href="/tppariscope/ControleurConcert?action='voirConcert'&id='<%=rsaccueil.getInt(1)%>'">
+                <!--
+                    Affiche le titre d'un article
+                -->
                 <h3><%=rsaccueil.getString(3) != null ? rsaccueil.getString(3) : ""%></h3>
-                <% for (int i = 4; i < 10 ; i++) {
+                <% for (int i = 4; i < 10; i++) {
                 %>
-                <p><%=rsaccueil.getString(i) != null && rsaccueil.getString(i)!=id_concert ? rsaccueil.getString(i) : ""%><p>
+                <!--
+                    Affiche le titre d'un article
+                -->
+                <p><%=rsaccueil.getString(i) != null && rsaccueil.getString(i) != id_concert ? rsaccueil.getString(i) : ""%><p>
                     <%}%>
             </a>
         </div>

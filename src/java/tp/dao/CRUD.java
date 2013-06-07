@@ -105,7 +105,7 @@ public class CRUD {
     public ResultSet selectAllASC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " ASC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, date_format(co.date_concert, '%d/%m/%Y'), co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " ASC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,7 +115,7 @@ public class CRUD {
     public ResultSet selectAllDESC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
         try {
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " DESC");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, date_format(co.date_concert, '%d/%m/%Y'), co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now() ORDER BY " + sColonneTrie + " DESC");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -125,8 +125,7 @@ public class CRUD {
     public ResultSet selectAllCC() {
         ResultSet lrsCurseur = null;
         try {
-            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now()");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, date_format(co.date_concert, '%d/%m/%Y'), co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom FROM concerts co JOIN categories ca JOIN lieux li WHERE co.id_categorie = ca.id_categorie and co.id_lieu = li.id_lieu and date_concert > now()");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -136,8 +135,7 @@ public class CRUD {
     public ResultSet selectAllCCAnnuler() {
         ResultSet lrsCurseur = null;
         try {
-            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
-            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and co.demande_sup<>0");
+            lrsCurseur = this.instruction.executeQuery("SELECT ca.id_categorie, ca.categorie, co.titre, date_format(co.date_concert, '%d/%m/%Y'), co.id_lieu, co.prix, co.id_concert, co.demande_sup FROM concerts co JOIN categories ca WHERE co.id_categorie = ca.id_categorie and co.demande_sup<>0");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -147,7 +145,6 @@ public class CRUD {
     public ResultSet selectAllJOIN(String sid) {
         ResultSet lrsCurseur = null;
         try {
-            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
             lrsCurseur = this.instruction.executeQuery("SELECT * FROM  concerts co JOIN categories ca JOIN lieux li WHERE id_concert = '" + sid + "' AND co.id_categorie = ca.id_categorie AND co.id_lieu = li.id_lieu");
         } catch (SQLException ex) {
             Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,9 +167,11 @@ public class CRUD {
         ResultSet lrsCurseur = null;
         StringBuilder requete=new StringBuilder();
         try {
-            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            // --- La requete SQL servant à afficher toutes les catégories,
+            // --- La requete est générées en fonction du 
+            // --- nombre de catégories présentes sur le site.
             for (int i=0;i<id_categorie.length;i++){
-           requete.append(" (select co.id_concert, ca.categorie, co.titre, group_concat(' ',ar.nom, ' ',ar.prenom) as concatenation, co.date_concert, co.heure_concert, li.nom, li.adresse, co.prix ");
+           requete.append(" (select co.id_concert, ca.categorie, co.titre, group_concat(' ',ar.nom, ' ',ar.prenom) as concatenation, date_format(co.date_concert, '%d/%m/%Y'), co.heure_concert, li.nom, li.adresse, co.prix ");
            requete.append(" from categories ca ");
            requete.append(" join concerts co ");
            requete.append(" on ca.id_categorie = co.id_categorie ");
@@ -197,9 +196,10 @@ public class CRUD {
     public ResultSet selectRechercher(String recherche) {
         ResultSet lrsCurseur = null;
         try {
-            // SELECT villes.nom_ville, clients.nom FROM villes JOIN clients ON villes.cp = clients.cp;
+            // --- Fonction servant à effectuer la recherche
+            // --- on peut rechercher dans differents champs de différentes tables
 
-            String requete = "SELECT ca.id_categorie, ca.categorie, co.titre, co.date_concert, co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom"
+            String requete = "SELECT ca.id_categorie, ca.categorie, co.titre, date_format(co.date_concert, '%d/%m/%Y'), co.id_lieu, co.prix, co.id_concert, co.demande_sup, li.nom"
                     + " FROM concerts co JOIN categories ca JOIN lieux li"
                     + " WHERE co.id_categorie = ca.id_categorie"
                     + " AND li.id_lieu = co.id_lieu"
