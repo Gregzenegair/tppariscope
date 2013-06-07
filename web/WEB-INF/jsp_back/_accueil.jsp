@@ -82,7 +82,7 @@
                 out.print("<td>");
                 out.print("<a href='" + lsURL);
                 out.print(lrs.getString(7));
-                out.print("'>Modifier | </a>");
+                out.print("'>Modifier</a> | ");
                 out.print("<a href='" + lsURLLigartiste);
                 out.print(lrs.getString(7));
                 out.print("'>Artistes</a>");

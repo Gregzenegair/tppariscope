@@ -87,18 +87,17 @@ public class ControleurBackOff extends HttpServlet {
                 int i = 0;
                 String[] asCheckArtistes = asCheckArtistes = request.getParameterValues("checkartistes");
 
-                while (i < asCheckArtistes.length) {
-                    
+                crud.deleteWhere("ligartistes", CRUD.genCondition("id_concert", request.getParameter("id")));
 
-                    if (asCheckArtistes[i] == null) { /// A debugger !!!!!
-                        crud.deleteWhere("ligartistes", CRUD.genCondition("id_artiste", String.valueOf(i), "id_concert", request.getParameter("id")));
-                    } else {
+                if (asCheckArtistes != null) {
+                while (i < asCheckArtistes.length) {
+                    if (asCheckArtistes[i] != null) { /// A debugger !!!!!
 
                         crud.insertInto("ligartistes",
                                 CRUD.genInsert("2", "id_concert", "id_artiste", request.getParameter("id"), asCheckArtistes[i]));
-
                     }
                     i++;
+                }
                 }
             } catch (SQLException e) {
             }
@@ -109,9 +108,9 @@ public class ControleurBackOff extends HttpServlet {
             request.setAttribute("message", "<span class='message'>Artiste(s) défini(s)</span>");
             lsNomPageInclusion = "_accueil.jsp";
         }
-        
-        
-        
+
+
+
 
 
         if (request.getParameter("action").equals("_inserer") && request.getParameter("id") != null) {

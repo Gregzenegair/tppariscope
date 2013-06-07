@@ -55,7 +55,7 @@ public class CRUD {
     public CRUD(String sNomBase) {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
-            this.connexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + sNomBase, "root", "");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://192.168.1.133:3306/" + sNomBase, "root", "");
             this.instruction = this.connexion.createStatement();
             //pour le teste on affiche dans la console si l'opération à réussie
             System.out.println("Vous êtes connecté sur la base de donnée: " + sNomBase + ".");
@@ -78,6 +78,29 @@ public class CRUD {
         }
         return lrsCurseur;
     }/// SELECT *
+    
+        public String[] selectId_categorie() {
+        ResultSet lrsCurseur = null;
+        String[] asResultat = null;
+        
+        try {
+            lrsCurseur = this.instruction.executeQuery("SELECT id_categorie FROM categories");
+            lrsCurseur.last();
+            int rowCount = lrsCurseur.getRow();
+            asResultat = new String[rowCount];
+            
+            lrsCurseur.beforeFirst();
+            int i = 0;
+            while (lrsCurseur.next()) {
+                asResultat[i] = lrsCurseur.getString(1);
+                i++;
+            }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(CRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return asResultat;
+    }/// selectId_categorie
 
     public ResultSet selectAllASC(String sNomTable, String sColonneTrie) {
         ResultSet lrsCurseur = null;
