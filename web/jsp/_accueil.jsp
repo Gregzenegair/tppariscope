@@ -10,7 +10,8 @@
 <div id='centre'>
     <%
         CRUD accueil = new CRUD("pariscope");
-        ResultSet rsaccueil = accueil.selectAll("concerts");
+        String[] id_categorie={"1","4"};
+        ResultSet rsaccueil = accueil.selectConcertAcceuil(id_categorie);
         String categorie = "";
         int nbCategorie = 0;
         while (rsaccueil.next()) {
