@@ -4,64 +4,37 @@
     Author     : stagiaire
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="tp.dao.CRUD"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id='centre'>
-    
-<article>
-    <a href="/tppariscope/ControleurConcert?action='voirConcert'&id='1'">
-        <h1>concerts clasique</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-    </a>
-</article>
-<article>
-        <h1>concerts hors paris</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
-<article>
-        <h1>musique du monde</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
-<article>
-        <h1>danse</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
-<article>
-        <h1>opéras</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
-<article>
-        <h1>variétés</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
-<article>
-        <h1>jazz</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
-<article>
-        <h1>pop-rock</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
-<article>
-        <h1>musique électronique</h1>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-        <%@include  file="_concert.jsp" %>
-</article>
+    <%
+        CRUD accueil = new CRUD("pariscope");
+        ResultSet rsaccueil = accueil.selectAll("concerts");
+        String categorie = "";
+        int nbCategorie = 0;
+        while (rsaccueil.next()) {
+            if (!categorie.equals(rsaccueil.getString(2))) {
+                if (nbCategorie != 0) {
+                    out.print("</article>");
+                }%>
+    <article>
+        <h1><%=rsaccueil.getString(2)%></h1>
+        <%
+                categorie = rsaccueil.getString(2);
+                nbCategorie++;
+
+            }%>
+        <div class="concert"> 
+            <a href="/tppariscope/ControleurConcert?action='voirConcert'&id='<%=rsaccueil.getInt(1)%>'">
+                <h3><%=rsaccueil.getString(3) != null ? rsaccueil.getString(3) : ""%></h3>
+                <% for (int i = 4; i < 10 ; i++) {%>
+                <p><%=rsaccueil.getString(i) != null ? rsaccueil.getString(i) : ""%><p>
+                    <%}%>
+            </a>
+        </div>
+
+        <%}%>
+    </article>
 
 </div>

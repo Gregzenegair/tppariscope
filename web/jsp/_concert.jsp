@@ -18,17 +18,6 @@
         <p>M°Richelieu-Drouot,</p>
         <p>0.825.01.01.23,</p>
         <p>pl: 13€</p>
-        <%
-          //  CRUD concert = new CRUD("pariscope");
-            //ResultSet lsConcertIncluse = concert.selectAllCC();
-            //while (lsConcertIncluse.next()) {
-              //  for (int i = 0; i < 5; i++) {
-                //    out.print("<p>");
-                  //  out.print(lsConcertIncluse.getString(i));
-                    //out.print("</p>");
-                //}
-           // }
-        %>
-
+    
     </a>
 </div>
